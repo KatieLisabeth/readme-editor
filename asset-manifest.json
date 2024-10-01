@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/readme.io/static/js/main.e94ac65f.js",
+    "static/js/453.ef02733f.chunk.js": "/readme.io/static/js/453.ef02733f.chunk.js",
+    "index.html": "/readme.io/index.html",
+    "main.e94ac65f.js.map": "/readme.io/static/js/main.e94ac65f.js.map",
+    "453.ef02733f.chunk.js.map": "/readme.io/static/js/453.ef02733f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.e94ac65f.js"
+  ]
+}
