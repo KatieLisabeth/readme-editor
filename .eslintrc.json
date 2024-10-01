@@ -12,35 +12,40 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": "./"
   },
   "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@components", "./src/components"],
+          ["@routes", "./src/routes"],
+          ["@utils", "./src/utils"]
+        ],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    },
     "react": {
       "version": "detect"
     },
-    "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"]
-      },
-      "typescript": {}
-    }
+      "typescript": {
+        "project": "./tsconfig.json"
+      }
+    },
+
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
   },
   "rules": {
     "prettier/prettier": ["error"],
     "react/prop-types": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/strict-boolean-expressions": [
-      "off",
-      {
-        "allowNullableObject": true,
-        "allowNullableBoolean": true,
-        "allowNullableString": true,
-        "allowNullableNumber": true
-      }
-    ]
+    "@typescript-eslint/no-empty-function": "off"
   }
 }
