@@ -1,26 +1,47 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "module": "NodeNext",
+    "target": "ESNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitReturns": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
+    "preserveConstEnums": true,
+    "downlevelIteration": true,
+    "strictNullChecks": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "paths": {
+      "/*": ["/*"]
+      // "@components/*": ["components/*"],
+      // "@utils/*": ["utils/*"],
+      // "@config/*": ["config/*"],
+      // "@routes/*": ["routes/*"],
+      // "@views/*": ["views/*"],
+      // "@api/*": ["api/*"]
+    },
+    "types": ["node", "webpack-env", "react"]
   },
-  "include": [
-    "src"
-  ]
+  "ts-node": {
+    "compilerOptions": {
+      "module": "NodeNext"
+    }
+  },
+  "include": ["src", "src/**/*", "src/types/global.d.ts"],
+  "exclude": ["node_modules"]
 }

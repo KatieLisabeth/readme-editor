@@ -1,0 +1,11 @@
+{
+    "title": "Repository Title",
+    "tagline": "Short Description or Tagline",
+    "about": "About the Project (Explain the purpose of this project)",
+    "installation": "Installation Instructions (Step-by-step guide)",
+    "features": "Features (e.g., bullet points of features)",
+    "usage": "Usage Instructions (How to use the project)",
+    "contributors": "Contributors Section (e.g., How to contribute, mention current contributors)",
+    "license": "License Information (Provide license details)",
+    "badges": "Badges (Links or markdown to add badges for CI/CD, version, etc.)"
+}
