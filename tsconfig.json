@@ -1,8 +1,9 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "module": "NodeNext",
+    "module": "ESNext",
     "target": "ESNext",
+    "moduleResolution": "node",
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -11,13 +12,13 @@
     "esModuleInterop": true,
     "strict": true,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noImplicitAny": false,
     "noImplicitThis": false,
     "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "isolatedModules": false,
     "preserveConstEnums": true,
@@ -25,20 +26,19 @@
     "strictNullChecks": true,
     "noEmit": true,
     "sourceMap": true,
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "paths": {
-      "components/*": ["components/*"],
-      "utils/*": ["utils/*"],
-      "config/*": ["config/*"],
-      "routes/*": ["routes/*"],
-      "views/*": ["views/*"]
+      "/*": ["/*"]
     },
-    "types": ["node", "react"]
+    "types": ["node", "webpack-env", "react"]
   },
   "ts-node": {
     "compilerOptions": {
       "module": "NodeNext"
     }
+  },
+  "paths": {
+    "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
   },
   "include": ["src", "src/**/tsx", "src/types/global.d.ts"],
   "exclude": ["node_modules"]
