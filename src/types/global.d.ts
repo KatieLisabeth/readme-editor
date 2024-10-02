@@ -13,9 +13,25 @@ declare global {
 
   type IConfigContextValue = IConfig;
 
-  type RouteConfig = {
+  type IRouteConfig = {
     path: string;
     element: React.FC;
+  };
+
+  type IMarkdownEditor = {
+    markdownText: string;
+    onMarkdownChange: (
+      event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+    ) => void;
+    onToggleView: () => void;
+  };
+
+  type IMarkdownPreview = {
+    markdownText: string;
+    ReactMarkdown: any;
+    rehypeDocument: any;
+    remarkGfm: any;
+    onToggleView: () => void;
   };
 }
 
