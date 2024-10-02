@@ -1,7 +1,7 @@
 import Playground from 'views/Playground';
 import WelcomePage from 'views/WelcomePage';
 
-const routesConfig: RouteConfig[] = [
+const routesConfig: IRouteConfig[] = [
   {
     path: '/',
     element: WelcomePage,
