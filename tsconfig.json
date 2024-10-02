@@ -27,21 +27,19 @@
     "sourceMap": true,
     "baseUrl": "./src",
     "paths": {
-      "/*": ["/*"]
-      // "@components/*": ["components/*"],
-      // "@utils/*": ["utils/*"],
-      // "@config/*": ["config/*"],
-      // "@routes/*": ["routes/*"],
-      // "@views/*": ["views/*"],
-      // "@api/*": ["api/*"]
+      "components/*": ["components/*"],
+      "utils/*": ["utils/*"],
+      "config/*": ["config/*"],
+      "routes/*": ["routes/*"],
+      "views/*": ["views/*"]
     },
-    "types": ["node", "webpack-env", "react"]
+    "types": ["node", "react"]
   },
   "ts-node": {
     "compilerOptions": {
       "module": "NodeNext"
     }
   },
-  "include": ["src", "src/**/*", "src/types/global.d.ts"],
+  "include": ["src", "src/**/tsx", "src/types/global.d.ts"],
   "exclude": ["node_modules"]
 }

@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import AppRoutes from 'routes/AppRoutes';
 
 function Copyright() {

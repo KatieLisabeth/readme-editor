@@ -19,9 +19,11 @@
     "import/resolver": {
       "alias": {
         "map": [
-          ["@components", "./src/components"],
-          ["@routes", "./src/routes"],
-          ["@utils", "./src/utils"]
+          ["components", "./src/components"],
+          ["routes", "./src/routes"],
+          ["utils", "./src/utils"],
+          ["config", "./src/config"],
+          ["views", "./src/views"]
         ],
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
@@ -29,10 +31,10 @@
     "react": {
       "version": "detect"
     },
-      "typescript": {
-        "project": "./tsconfig.json"
-      }
-    },
+    "typescript": {
+      "project": "./tsconfig.json"
+    }
+  },
 
   "env": {
     "browser": true,
