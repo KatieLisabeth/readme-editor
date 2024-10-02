@@ -16,7 +16,7 @@ function Copyright() {
     >
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        README Generator
+        README Editor
       </Link>{' '}
       {new Date().getFullYear()}.
     </Typography>
