@@ -13,6 +13,7 @@ const WelcomePage: React.FC = () => {
   return (
     <Box
       sx={{
+        m: 6,
         height: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -40,8 +41,8 @@ const WelcomePage: React.FC = () => {
             color: theme.palette.mode === 'light' ? 'black' : 'white',
           }}
         >
-          <Typography variant="h2" gutterBottom sx={{ fontWeight: 'bold' }}>
-            Welcome to the README Generator!
+          <Typography variant="h3" gutterBottom sx={{ fontWeight: 'bold' }}>
+            Welcome to the README Editor!
           </Typography>
           <Typography variant="h6" color="textSecondary" gutterBottom>
             Create professional and engaging README files effortlessly.
