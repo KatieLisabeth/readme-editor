@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["craco", "fontsource", "predeploy", "roboto", "webfonts"]
+  "cSpell.words": [
+    "craco",
+    "fontsource",
+    "predeploy",
+    "rehype",
+    "roboto",
+    "webfonts"
+  ]
 }
