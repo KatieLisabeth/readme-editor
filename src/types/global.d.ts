@@ -1,14 +1,20 @@
 declare global {
+  type IElement = {
+    id: string;
+    element: string;
+    syntax: string;
+  };
+
   type ISection = {
     id: string;
     title: string;
-    description: string;
+    element: IElement[];
   };
 
   type IConfig = {
-    basePath: string;
     route: string;
-    sections: ISection[];
+    elements: IElement[];
+    sections?: ISection[];
   };
 
   type IConfigContextValue = IConfig;
@@ -32,6 +38,10 @@ declare global {
     rehypeDocument: any;
     remarkGfm: any;
     onToggleView: () => void;
+  };
+
+  type ISidebar = {
+    isExpanded: boolean;
   };
 }
 
