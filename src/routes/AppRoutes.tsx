@@ -1,4 +1,4 @@
-import routesConfig from 'config/IRoutes';
+import routesConfig from 'config/Routes';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 

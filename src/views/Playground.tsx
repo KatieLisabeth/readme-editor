@@ -1,10 +1,7 @@
-// MarkdownPlayground.tsx
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Container, IconButton, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import MarkdownEditor from 'components/MarkdownEditor';
 import MarkdownPreview from 'components/MarkdownPreview';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const Playground: React.FC = () => {
   const [markdownText, setMarkdownText] = useState<string>('');
@@ -12,8 +9,6 @@ const Playground: React.FC = () => {
   const [ReactMarkdown, setReactMarkdown] = useState<any>(null);
   const [rehypeDocument, setRehypeDocument] = useState<any>(null);
   const [remarkGfm, setRemarkGfm] = useState<any>(null);
-
-  const navigate = useNavigate();
 
   // Load saved content from session storage on initial render and dynamically import modules
   useEffect(() => {
@@ -52,17 +47,8 @@ const Playground: React.FC = () => {
     setIsEditorView((prev) => !prev);
   };
 
-  const handleGoBack = () => {
-    navigate('/');
-  };
-
   return (
     <Container maxWidth={'lg'}>
-      <div style={{ position: 'absolute', top: 10, left: 16 }}>
-        <IconButton onClick={handleGoBack} color="inherit">
-          <ArrowBackIcon />
-        </IconButton>
-      </div>
       <Box
         sx={{
           height: '100%',
