@@ -1,10 +1,11 @@
 import { Box, Container, Typography } from '@mui/material';
 import MarkdownEditor from 'components/MarkdownEditor';
 import MarkdownPreview from 'components/MarkdownPreview';
+import { useMarkdownContext } from 'config/Context'; // Use the context
 import React, { useEffect, useState } from 'react';
 
 const Playground: React.FC = () => {
-  const [markdownText, setMarkdownText] = useState<string>('');
+  const { markdownText, setMarkdownText } = useMarkdownContext(); // Access markdownText and setMarkdownText from context
   const [isEditorView, setIsEditorView] = useState<boolean>(true);
   const [ReactMarkdown, setReactMarkdown] = useState<any>(null);
   const [rehypeDocument, setRehypeDocument] = useState<any>(null);
@@ -30,7 +31,7 @@ const Playground: React.FC = () => {
     };
 
     loadModules();
-  }, []);
+  }, [setMarkdownText]);
 
   // Save markdown content to session storage whenever it changes
   useEffect(() => {
@@ -40,7 +41,7 @@ const Playground: React.FC = () => {
   const handleMarkdownChange = (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    setMarkdownText(event.target.value);
+    setMarkdownText(event.target.value); // Update the markdown text on change
   };
 
   const toggleView = () => {
@@ -74,7 +75,7 @@ const Playground: React.FC = () => {
       >
         {isEditorView ? (
           <MarkdownEditor
-            markdownText={markdownText}
+            markdownText={markdownText} // Pass the selected markdown text
             onMarkdownChange={handleMarkdownChange}
             onToggleView={toggleView}
           />
@@ -83,7 +84,7 @@ const Playground: React.FC = () => {
           rehypeDocument &&
           remarkGfm && (
             <MarkdownPreview
-              markdownText={markdownText}
+              markdownText={markdownText} // Display the selected markdown text in the preview
               ReactMarkdown={ReactMarkdown}
               rehypeDocument={rehypeDocument}
               remarkGfm={remarkGfm}
