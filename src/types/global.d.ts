@@ -12,12 +12,18 @@ declare global {
   };
 
   type IConfig = {
-    route: string;
-    elements: IElement[];
+    route?: string;
     sections?: ISection[];
   };
 
-  type IConfigContextValue = IConfig;
+  type IContextValue = {
+    markdownText: string;
+    setMarkdownText: (text: string) => void;
+  };
+
+  type IMarkdownProvider = {
+    children: React.ReactNode;
+  };
 
   type IRouteConfig = {
     path: string;
@@ -38,10 +44,6 @@ declare global {
     rehypeDocument: any;
     remarkGfm: any;
     onToggleView: () => void;
-  };
-
-  type ISidebar = {
-    isExpanded: boolean;
   };
 }
 
