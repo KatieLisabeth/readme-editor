@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.js": "/readme-editor/static/js/main.ec2975f3.js",
+    "main.js": "/readme-editor/static/js/main.52d21573.js",
     "static/js/601.798281b4.chunk.js": "/readme-editor/static/js/601.798281b4.chunk.js",
     "static/js/211.b3fa5b01.chunk.js": "/readme-editor/static/js/211.b3fa5b01.chunk.js",
     "static/js/954.96af8cdc.chunk.js": "/readme-editor/static/js/954.96af8cdc.chunk.js",
     "static/js/453.b7c98544.chunk.js": "/readme-editor/static/js/453.b7c98544.chunk.js",
     "static/js/414.63a8aa8f.chunk.js": "/readme-editor/static/js/414.63a8aa8f.chunk.js",
     "static/js/815.a566a57d.chunk.js": "/readme-editor/static/js/815.a566a57d.chunk.js",
+    "static/media/logo.png": "/readme-editor/static/media/logo.2f1b3fa3d78f1523dbd4.png",
     "index.html": "/readme-editor/index.html",
-    "main.ec2975f3.js.map": "/readme-editor/static/js/main.ec2975f3.js.map",
+    "main.52d21573.js.map": "/readme-editor/static/js/main.52d21573.js.map",
     "601.798281b4.chunk.js.map": "/readme-editor/static/js/601.798281b4.chunk.js.map",
     "211.b3fa5b01.chunk.js.map": "/readme-editor/static/js/211.b3fa5b01.chunk.js.map",
     "954.96af8cdc.chunk.js.map": "/readme-editor/static/js/954.96af8cdc.chunk.js.map",
@@ -17,6 +18,6 @@
     "815.a566a57d.chunk.js.map": "/readme-editor/static/js/815.a566a57d.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.ec2975f3.js"
+    "static/js/main.52d21573.js"
   ]
 }
