@@ -13,24 +13,21 @@ const WelcomePage: React.FC = () => {
   return (
     <Box
       sx={{
-        m: 6,
+        m: 1,
         height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         backgroundImage: theme.customBackground.gradient,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         borderRadius: 8,
         color: theme.palette.mode === 'light' ? 'black' : 'white',
         textAlign: 'center',
-        p: 4,
+        p: 2,
       }}
     >
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <Box
           sx={{
-            p: 5,
+            p: 2,
             boxShadow: 6,
             borderRadius: 3,
             backgroundColor:
@@ -58,6 +55,20 @@ const WelcomePage: React.FC = () => {
             through the sections, allowing you to customize the content and save
             it as a markdown file for your projects.
           </Typography>
+          <Typography variant="body1" gutterBottom sx={{ mt: 2 }}>
+            You can select predefined markdown syntax from the sidebar and
+            easily edit it to fit your project needs. Our intuitive interface
+            allows you to manage different sections, drag and drop elements
+            around, and even delete content with a single click to streamline
+            your editing experience.
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            The playground offers full flexibility, enabling you to create your
+            own custom layouts or work from existing templates to save time.
+            Whether you&rsquo;re organizing elements or refining your syntax,
+            the README Editor has got you covered.
+          </Typography>
+
           <Box mt={5}>
             <Button
               variant="contained"
