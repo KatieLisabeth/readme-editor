@@ -90,14 +90,17 @@ const Sidebar: React.FC = () => {
         </Box>
         <List>
           {/* Home link */}
-          <ListItem onClick={() => navigate('/playground')}>
-            <HomeIcon />
+          <ListItem onClick={() => navigate('/')} sx={{ cursor: 'pointer' }}>
+            <HomeIcon color="secondary" />
 
             {isExpanded && <ListItemText secondary="Home" sx={{ px: 2 }} />}
           </ListItem>
           {/* Playground link */}
-          <ListItem onClick={() => navigate('/playground')}>
-            <SettingsIcon />
+          <ListItem
+            onClick={() => navigate('/playground')}
+            sx={{ cursor: 'pointer' }}
+          >
+            <SettingsIcon color="secondary" />
 
             {isExpanded && (
               <ListItemText secondary="Playground" sx={{ px: 2 }} />
@@ -106,7 +109,7 @@ const Sidebar: React.FC = () => {
           {/* Section Selector for Playground */}
           {isPlayground && (
             <ListItem>
-              <ListAltIcon />
+              <ListAltIcon color="secondary" />
 
               {isExpanded && (
                 <FormControl fullWidth>
