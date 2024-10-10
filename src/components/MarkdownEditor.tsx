@@ -1,41 +1,40 @@
-import FileOpenIcon from '@mui/icons-material/FileOpen';
-import { Box, IconButton, TextField, Typography } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
+import React from 'react';
 
 const MarkdownEditor: React.FC<IMarkdownEditor> = ({
-  markdownText,
+  savedItems,
   onMarkdownChange,
-  onToggleView,
 }) => {
+  const combinedMarkdown = savedItems.join('\n\n');
+
+  const handleTextChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const updatedMarkdown = event.target.value;
+    const updatedItems = updatedMarkdown.split('\n\n');
+    onMarkdownChange(updatedItems);
+  };
+
   return (
     <Box>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          pb: 0.5,
-        }}
-      >
-        <Typography variant="h6" gutterBottom>
-          Edit Markdown
-        </Typography>
-        <IconButton color="primary" onClick={onToggleView}>
-          <FileOpenIcon />
-        </IconButton>
+      <Typography variant="h6" gutterBottom>
+        Edit All Markdown Items
+      </Typography>
+
+      <Box sx={{ marginBottom: '1rem' }}>
+        <TextField
+          multiline
+          rows={20}
+          variant="outlined"
+          fullWidth
+          value={combinedMarkdown}
+          onChange={handleTextChange}
+          placeholder="Edit all markdown items here"
+          inputProps={{
+            style: { fontFamily: 'monospace' },
+          }}
+        />
       </Box>
-      <TextField
-        multiline
-        rows={25}
-        variant="outlined"
-        fullWidth
-        value={markdownText}
-        onChange={onMarkdownChange}
-        placeholder="Write your markdown here..."
-        inputProps={{
-          style: { fontFamily: 'monospace' },
-        }}
-      />
     </Box>
   );
 };

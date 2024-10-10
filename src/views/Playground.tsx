@@ -1,24 +1,16 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 import MarkdownEditor from 'components/MarkdownEditor';
 import MarkdownPreview from 'components/MarkdownPreview';
-import { useMarkdownContext } from 'config/Context'; // Use the context
+import { useMarkdownContext } from 'config/Context';
 import React, { useEffect, useState } from 'react';
 
 const Playground: React.FC = () => {
-  const { markdownText, setMarkdownText } = useMarkdownContext(); // Access markdownText and setMarkdownText from context
-  const [isEditorView, setIsEditorView] = useState<boolean>(true);
+  const { savedItems, setSavedItems, setMarkdownText } = useMarkdownContext();
   const [ReactMarkdown, setReactMarkdown] = useState<any>(null);
   const [rehypeDocument, setRehypeDocument] = useState<any>(null);
   const [remarkGfm, setRemarkGfm] = useState<any>(null);
 
-  // Load saved content from session storage on initial render and dynamically import modules
   useEffect(() => {
-    const savedMarkdown = sessionStorage.getItem('markdownContent');
-    if (savedMarkdown) {
-      setMarkdownText(savedMarkdown);
-    }
-
-    // Dynamically import ReactMarkdown, rehypeDocument, and remarkGfm
     const loadModules = async () => {
       const [markdownModule, rehypeModule, gfmModule] = await Promise.all([
         import('react-markdown'),
@@ -31,21 +23,21 @@ const Playground: React.FC = () => {
     };
 
     loadModules();
-  }, [setMarkdownText]);
+  }, []);
 
-  // Save markdown content to session storage whenever it changes
-  useEffect(() => {
-    sessionStorage.setItem('markdownContent', markdownText);
-  }, [markdownText]);
-
-  const handleMarkdownChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setMarkdownText(event.target.value); // Update the markdown text on change
+  const handleMarkdownChange = (updatedItems: string[]) => {
+    setSavedItems(updatedItems);
+    setMarkdownText(updatedItems.join('\n\n'));
   };
 
-  const toggleView = () => {
-    setIsEditorView((prev) => !prev);
+  const downloadMarkdown = () => {
+    const blob = new Blob([savedItems.join('\n\n')], { type: 'text/markdown' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'README.md';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -55,17 +47,19 @@ const Playground: React.FC = () => {
           height: '100%',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 8,
-          textAlign: 'center',
+          justifyContent: 'space-between',
           mx: 4,
         }}
       >
         <Typography variant="h4">Markdown Playground</Typography>
+        <Button onClick={downloadMarkdown} variant="contained">
+          Download
+        </Button>
       </Box>
 
       <Box
         sx={{
+          display: 'flex',
           height: '100%',
           border: '1px solid #ccc',
           borderRadius: '8px',
@@ -73,25 +67,29 @@ const Playground: React.FC = () => {
           overflowY: 'auto',
         }}
       >
-        {isEditorView ? (
+        <Box sx={{ width: '50%', paddingRight: '1rem' }}>
           <MarkdownEditor
-            markdownText={markdownText} // Pass the selected markdown text
+            savedItems={savedItems}
             onMarkdownChange={handleMarkdownChange}
-            onToggleView={toggleView}
           />
-        ) : (
-          ReactMarkdown &&
-          rehypeDocument &&
-          remarkGfm && (
+        </Box>
+
+        <Box
+          sx={{
+            width: '50%',
+            paddingLeft: '1rem',
+            borderLeft: '1px solid #ddd',
+          }}
+        >
+          {ReactMarkdown && rehypeDocument && remarkGfm && (
             <MarkdownPreview
-              markdownText={markdownText} // Display the selected markdown text in the preview
+              markdownText={savedItems.join('\n\n')}
               ReactMarkdown={ReactMarkdown}
               rehypeDocument={rehypeDocument}
               remarkGfm={remarkGfm}
-              onToggleView={toggleView}
             />
-          )
-        )}
+          )}
+        </Box>
       </Box>
     </Container>
   );

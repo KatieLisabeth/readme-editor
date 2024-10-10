@@ -13,17 +13,24 @@ declare global {
 
   type IConfig = {
     route?: string;
-    sections?: ISection[];
+    sections: ISection[];
   };
 
   type IContextValue = {
     markdownText: string;
-    setMarkdownText: (text: string) => void;
+    setMarkdownText: React.Dispatch<React.SetStateAction<string>>;
+    savedItems: string[];
+    setSavedItems: React.Dispatch<React.SetStateAction<string[]>>;
   };
 
   type IMarkdownProvider = {
     children: React.ReactNode;
   };
+
+  interface IMarkdownSection {
+    section: ISection;
+    onSelectElement: (selectedSyntax: string[]) => void;
+  }
 
   type IRouteConfig = {
     path: string;
@@ -31,11 +38,8 @@ declare global {
   };
 
   type IMarkdownEditor = {
-    markdownText: string;
-    onMarkdownChange: (
-      event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-    ) => void;
-    onToggleView: () => void;
+    savedItems: string[];
+    onMarkdownChange: (updatedItems: string[]) => void;
   };
 
   type IMarkdownPreview = {
@@ -43,7 +47,6 @@ declare global {
     ReactMarkdown: any;
     rehypeDocument: any;
     remarkGfm: any;
-    onToggleView: () => void;
   };
 }
 
