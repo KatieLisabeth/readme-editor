@@ -45,7 +45,7 @@ const Sidebar: React.FC = () => {
     // Add selected elements to savedItems and update context
     const updatedItems = [...savedItems, combinedSyntax];
     setSavedItems(updatedItems);
-    setMarkdownText(updatedItems.join('\n\n')); // Update Markdown editor
+    setMarkdownText(updatedItems.join('\n\n'));
   };
 
   const selectedSection =
