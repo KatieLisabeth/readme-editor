@@ -32,8 +32,8 @@ const lightTheme = createTheme({
       paper: '#f5f5f5',
     },
     text: {
-      primary: '#19859b',
-      secondary: '#555555',
+      primary: '#555555',
+      secondary: '#16c197',
     },
   },
   customBackground: {
@@ -59,8 +59,8 @@ const darkTheme = createTheme({
       paper: '#0f122c',
     },
     text: {
-      primary: '#ffffff',
-      secondary: '#aadaaa',
+      primary: '#16c197',
+      secondary: '#16d287',
     },
   },
   customBackground: {
