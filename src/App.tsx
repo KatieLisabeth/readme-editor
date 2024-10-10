@@ -50,7 +50,11 @@ export default function App() {
               >
                 {/* Theme Switch Button */}
                 <IconButton onClick={handleThemeSwitch} color="inherit">
-                  {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
+                  {isDarkMode ? (
+                    <LightModeIcon color="warning" />
+                  ) : (
+                    <DarkModeIcon color="info" />
+                  )}
                 </IconButton>
               </Box>
 
@@ -60,6 +64,21 @@ export default function App() {
                   padding: '1rem',
                 }}
               >
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: '14px',
+                    zIndex: 10,
+                  }}
+                >
+                  <iframe
+                    src="https://ghbtns.com/github-btn.html?user=katielisabeth&repo=readme-editor&type=star&count=true&size=small"
+                    width="170"
+                    height="30"
+                    title="GitHub"
+                    style={{ border: 'none' }}
+                  ></iframe>
+                </Box>
                 <AppRoutes />
               </Box>
 
