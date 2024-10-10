@@ -11,36 +11,41 @@ import {
   InputLabel,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   MenuItem,
   Select,
-  SelectChangeEvent, // Import the correct type
+  SelectChangeEvent,
 } from '@mui/material';
+import logo from 'assets/logo.png';
 import MarkdownSection from 'components/MarkdownSection';
 import { useMarkdownContext } from 'config/Context';
 import markdown from 'config/markdown';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-const Sidebar: React.FC = () => {
-  const [isExpanded, setIsExpanded] = React.useState<boolean>(true);
-  const [selectedSectionId, setSelectedSectionId] = React.useState<string>(''); // Store section ID
-  const { setMarkdownText } = useMarkdownContext();
+import { useLocation, useNavigate } from 'react-router-dom';
 
+const Sidebar: React.FC = () => {
+  const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
+  const [selectedSectionId, setSelectedSectionId] = React.useState<string>(''); // Store section ID
+  const { setMarkdownText, setSavedItems, savedItems } = useMarkdownContext();
   const location = useLocation();
-  // Toggle sidebar expansion
+
+  const navigate = useNavigate();
+
   const toggleSidebar = () => {
     setIsExpanded((prev) => !prev);
   };
 
-  // Handle section selection from the Select dropdown
   const handleSectionSelect = (event: SelectChangeEvent<string>) => {
     const sectionId = event.target.value;
     setSelectedSectionId(sectionId);
   };
 
-  const handleSelectElement = (syntax: string) => {
-    setMarkdownText(syntax);
+  const handleSelectElement = (syntax: string[]) => {
+    const combinedSyntax = syntax.join('\n\n');
+    // Add selected elements to savedItems and update context
+    const updatedItems = [...savedItems, combinedSyntax];
+    setSavedItems(updatedItems);
+    setMarkdownText(updatedItems.join('\n\n')); // Update Markdown editor
   };
 
   const selectedSection =
@@ -48,6 +53,7 @@ const Sidebar: React.FC = () => {
     null;
 
   const isPlayground = location.pathname === '/playground';
+
   return (
     <Box sx={{ display: 'flex' }}>
       {/* Sidebar Drawer */}
@@ -55,35 +61,53 @@ const Sidebar: React.FC = () => {
         variant="permanent"
         sx={{
           width: isExpanded ? 280 : 60,
-          flexShrink: 0,
+          display: 'flex',
+          justifyContent: isExpanded ? 'end' : 'center',
+          padding: 0,
           '& .MuiDrawer-paper': {
             width: isExpanded ? 280 : 60,
-            boxSizing: 'border-box',
-            transition: 'width 0.3s',
+            transition: 'width 0.3s ease',
           },
         }}
       >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            padding: '0.5rem',
+          }}
+        >
+          {/* App Logo */}
+          <img
+            src={logo}
+            alt="App Logo"
+            style={{
+              width: isExpanded ? '60px' : '40px',
+              height: isExpanded ? '55px' : '35px',
+            }}
+          />
+        </Box>
         <List>
           {/* Home link */}
-          <ListItem component="a" href="/#/">
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            {isExpanded && <ListItemText secondary="Home" />}
+          <ListItem onClick={() => navigate('/playground')}>
+            <HomeIcon />
+
+            {isExpanded && <ListItemText secondary="Home" sx={{ px: 2 }} />}
           </ListItem>
           {/* Playground link */}
-          <ListItem component="a" href="/#/playground">
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            {isExpanded && <ListItemText secondary="Playground" />}
+          <ListItem onClick={() => navigate('/playground')}>
+            <SettingsIcon />
+
+            {isExpanded && (
+              <ListItemText secondary="Playground" sx={{ px: 2 }} />
+            )}
           </ListItem>
-          {/* Section Selector */}
+          {/* Section Selector for Playground */}
           {isPlayground && (
             <ListItem>
-              <ListItemIcon>
-                <ListAltIcon />
-              </ListItemIcon>
+              <ListAltIcon />
+
               {isExpanded && (
                 <FormControl fullWidth>
                   <InputLabel id="section-select-label">
@@ -106,13 +130,16 @@ const Sidebar: React.FC = () => {
             </ListItem>
           )}
         </List>
+
+        {/* Scrollable MarkdownSection when expanded */}
         <Box
           sx={{
+            flexGrow: 1,
             overflowY: 'auto',
+            paddingX: isExpanded ? 2 : 0,
           }}
         >
-          {/* Display the MarkdownSection for the selected section */}
-          {isExpanded && selectedSection && (
+          {isPlayground && isExpanded && selectedSection && (
             <MarkdownSection
               section={selectedSection}
               onSelectElement={handleSelectElement}
@@ -130,8 +157,7 @@ const Sidebar: React.FC = () => {
             display: 'flex',
             justifyContent: isExpanded ? 'end' : 'center',
             alignItems: 'center',
-            background: 'primary',
-            mb: 2, // Add some margin
+            mb: 2,
           }}
         >
           <IconButton onClick={toggleSidebar}>
