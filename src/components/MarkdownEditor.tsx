@@ -18,7 +18,7 @@ const MarkdownEditor: React.FC<IMarkdownEditor> = ({
   return (
     <Box>
       <Typography variant="h6" gutterBottom>
-        Edit All Markdown Items
+        Editor
       </Typography>
 
       <Box sx={{ marginBottom: '1rem' }}>

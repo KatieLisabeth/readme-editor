@@ -16,6 +16,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  Tooltip,
 } from '@mui/material';
 import logo from 'assets/logo.png';
 import MarkdownManager from 'components/MarkdownManager';
@@ -52,12 +53,12 @@ const Sidebar: React.FC = () => {
 
   const handleManagingElement = () => {
     setIsManaging((prev) => !prev);
-    console.log(isManaging);
   };
   const handleReorderItems = (updatedItems: string[]) => {
     setSavedItems(updatedItems);
     setMarkdownText(updatedItems.join('\n\n'));
   };
+
   const selectedSection =
     templates.sections?.find((section) => section.id === selectedSectionId) ||
     null;
@@ -70,12 +71,12 @@ const Sidebar: React.FC = () => {
       <Drawer
         variant="permanent"
         sx={{
-          width: isExpanded ? 280 : 60,
+          width: isExpanded ? 300 : 60,
           display: 'flex',
           justifyContent: isExpanded ? 'end' : 'center',
           padding: 0,
           '& .MuiDrawer-paper': {
-            width: isExpanded ? 280 : 60,
+            width: isExpanded ? 300 : 60,
             transition: 'width 0.3s ease',
           },
         }}
@@ -101,37 +102,49 @@ const Sidebar: React.FC = () => {
         <List>
           {/* Home link */}
           <ListItem onClick={() => navigate('/')} sx={{ cursor: 'pointer' }}>
-            <HomeIcon color="secondary" />
-
-            {isExpanded && <ListItemText secondary="Home" sx={{ px: 2 }} />}
+            <Tooltip title="Home page">
+              <HomeIcon color="secondary" />
+            </Tooltip>
+            {isExpanded && (
+              <ListItemText
+                secondary="Home"
+                sx={{ px: 2, cursor: 'pointer' }}
+              />
+            )}
           </ListItem>
           {/* Playground link */}
           <ListItem
             onClick={() => navigate('/playground')}
             sx={{ cursor: 'pointer' }}
           >
-            <SettingsIcon color="secondary" />
-
+            <Tooltip title="Playground page">
+              <SettingsIcon color="secondary" />
+            </Tooltip>
             {isExpanded && (
-              <ListItemText secondary="Playground" sx={{ px: 2 }} />
+              <ListItemText
+                secondary="Playground"
+                sx={{ px: 2, cursor: 'pointer' }}
+              />
             )}
           </ListItem>
           {/* Section Selector for Playground */}
           {isPlayground && (
             <ListItem>
-              <ListAltIcon color="secondary" />
-
+              <Tooltip title="Click to select">
+                <ListAltIcon color="secondary" sx={{ cursor: 'pointer' }} />
+              </Tooltip>
               {isExpanded && (
                 <FormControl fullWidth>
-                  <InputLabel id="section-select-label">
-                    Select Section
-                  </InputLabel>
+                  <InputLabel id="section-select-label">Select</InputLabel>
                   <Select
                     labelId="section-select-label"
                     value={selectedSectionId}
                     onChange={handleSectionSelect}
-                    label="Select Section"
+                    label="Select"
                   >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
                     {templates.sections?.map((section) => (
                       <MenuItem key={section.id} value={section.id}>
                         {section.title}
@@ -147,9 +160,15 @@ const Sidebar: React.FC = () => {
               onClick={handleManagingElement}
               sx={{ cursor: 'pointer' }}
             >
-              <LowPriorityIcon color="secondary" />
-
-              {isExpanded && <ListItemText secondary="Manage" sx={{ px: 2 }} />}
+              <Tooltip title="Click to manage">
+                <LowPriorityIcon color="secondary" />
+              </Tooltip>
+              {isExpanded && (
+                <ListItemText
+                  secondary="Manage"
+                  sx={{ px: 2, cursor: 'pointer' }}
+                />
+              )}
             </ListItem>
           )}
         </List>
@@ -157,10 +176,9 @@ const Sidebar: React.FC = () => {
         {/* Scrollable MarkdownSection when expanded */}
         <Box
           sx={{
-            // flexGrow: 1,
             marginTop: '4rem',
             overflowY: 'auto',
-            paddingX: isExpanded ? 5 : 0,
+            paddingX: isExpanded ? 2.5 : 0,
           }}
         >
           {isPlayground && isExpanded && !isManaging && selectedSection && (
@@ -180,7 +198,7 @@ const Sidebar: React.FC = () => {
             position: 'fixed',
             bottom: 0,
             left: 0,
-            width: isExpanded ? 280 : 60,
+            width: isExpanded ? 300 : 60,
             display: 'flex',
             justifyContent: isExpanded ? 'end' : 'center',
             alignItems: 'center',
@@ -188,7 +206,15 @@ const Sidebar: React.FC = () => {
           }}
         >
           <IconButton onClick={toggleSidebar}>
-            {isExpanded ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
+            {isExpanded ? (
+              <Tooltip title="Click to close">
+                <ArrowBackIosIcon />
+              </Tooltip>
+            ) : (
+              <Tooltip title="Click to open">
+                <ArrowForwardIosIcon />
+              </Tooltip>
+            )}
           </IconButton>
         </Box>
       </Drawer>
