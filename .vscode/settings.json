@@ -6,6 +6,8 @@
     "predeploy",
     "rehype",
     "roboto",
+    "swal",
+    "sweetalert",
     "webfonts"
   ]
 }
