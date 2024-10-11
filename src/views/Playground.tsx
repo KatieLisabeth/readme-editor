@@ -1,4 +1,5 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import { Box, Button, Container, Tooltip, Typography } from '@mui/material';
 import MarkdownEditor from 'components/MarkdownEditor';
 import MarkdownPreview from 'components/MarkdownPreview';
 import { useMarkdownContext } from 'config/Context';
@@ -48,13 +49,15 @@ const Playground: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          mx: 4,
+          my: 2,
         }}
       >
         <Typography variant="h4">Markdown Playground</Typography>
-        <Button onClick={downloadMarkdown} variant="contained">
-          Download
-        </Button>
+        <Tooltip title="Click to download README file">
+          <Button onClick={downloadMarkdown} variant="contained">
+            Download <CloudDownloadIcon sx={{ ml: 2 }} />
+          </Button>
+        </Tooltip>
       </Box>
 
       <Box

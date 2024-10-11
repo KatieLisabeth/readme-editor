@@ -1,7 +1,7 @@
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import { Box, IconButton, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles'; // Correct import for MUI themes
+import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { useMarkdownContext } from 'config/Context';
 import { useState } from 'react';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -9,16 +9,19 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
   const { savedItems, setSavedItems } = useMarkdownContext();
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
-
-  // Get theme from Material-UI
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // New state to track hover index
   const theme = useTheme();
 
   const handleDragStart = (index: number) => {
     setDraggedIndex(index);
   };
 
-  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+  const handleDragOver = (
+    event: React.DragEvent<HTMLDivElement>,
+    index: number
+  ) => {
     event.preventDefault();
+    setHoveredIndex(index);
   };
 
   const handleDrop = (dropIndex: number) => {
@@ -29,8 +32,17 @@ const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
 
     updatedItems.splice(draggedIndex, 1);
     updatedItems.splice(dropIndex, 0, draggedItem);
+
     onReorderItems(updatedItems);
+    setSavedItems(updatedItems);
+
+    // Reset drag-related states
     setDraggedIndex(null);
+    setHoveredIndex(null);
+  };
+
+  const handleDragLeave = () => {
+    setHoveredIndex(null);
   };
 
   const handleDeletingItem = (index: number) => {
@@ -73,8 +85,10 @@ const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
           <Box
             key={index}
             sx={{
-              padding: '0.2rem',
-              border: '1px solid #ddd',
+              padding: hoveredIndex === index ? '0.5rem' : '0.2rem',
+              border:
+                hoveredIndex === index ? '2px dashed #09c' : '1px solid #ddd',
+
               borderRadius: '5px',
               marginBottom: '0.5rem',
               display: 'flex',
@@ -85,28 +99,41 @@ const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
             }}
             draggable
             onDragStart={() => handleDragStart(index)}
-            onDragOver={handleDragOver}
+            onDragOver={(event) => handleDragOver(event, index)}
             onDrop={() => handleDrop(index)}
+            onDragLeave={handleDragLeave}
           >
             <Typography
               variant="body1"
               sx={{ display: 'flex', alignItems: 'center', cursor: 'grab' }}
             >
-              <DragIndicatorIcon
-                color="secondary"
-                sx={{
-                  marginRight: '0.5rem',
-                  fontSize: '2em',
-                  padding: 0,
+              <span
+                style={{
+                  cursor: 'grab',
+                  display: 'inline-flex',
+                  alignItems: 'center',
                 }}
-              />
-              {item.substring(0, 21)}...
+              >
+                <DragIndicatorIcon
+                  color="secondary"
+                  sx={{
+                    marginRight: '0.5rem',
+                    fontSize: '2em',
+                    padding: 0,
+                  }}
+                />
+                {item.substring(0, 21)}...
+              </span>
             </Typography>
             <IconButton
               aria-label="delete"
               onClick={() => handleDeletingItem(index)}
             >
-              <DeleteIcon sx={{ color: theme.palette.error.main }} />{' '}
+              <Tooltip title="Click to delete">
+                <DeleteForeverTwoToneIcon
+                  sx={{ color: theme.palette.error.main }}
+                />
+              </Tooltip>
             </IconButton>
           </Box>
         ))}
