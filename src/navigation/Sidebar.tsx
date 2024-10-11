@@ -2,6 +2,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import HomeIcon from '@mui/icons-material/Home';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import LowPriorityIcon from '@mui/icons-material/LowPriority';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {
   Box,
@@ -17,6 +18,7 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 import logo from 'assets/logo.png';
+import MarkdownManager from 'components/MarkdownManager';
 import MarkdownSection from 'components/MarkdownSection';
 import { useMarkdownContext } from 'config/Context';
 import React from 'react';
@@ -25,7 +27,8 @@ import templates from 'utils/templates';
 
 const Sidebar: React.FC = () => {
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
-  const [selectedSectionId, setSelectedSectionId] = React.useState<string>(''); // Store section ID
+  const [isManaging, setIsManaging] = React.useState<boolean>(false);
+  const [selectedSectionId, setSelectedSectionId] = React.useState<string>('');
   const { setMarkdownText, setSavedItems, savedItems } = useMarkdownContext();
   const location = useLocation();
 
@@ -42,12 +45,19 @@ const Sidebar: React.FC = () => {
 
   const handleSelectElement = (syntax: string[]) => {
     const combinedSyntax = syntax.join('\n\n');
-    // Add selected elements to savedItems and update context
     const updatedItems = [...savedItems, combinedSyntax];
     setSavedItems(updatedItems);
     setMarkdownText(updatedItems.join('\n\n'));
   };
 
+  const handleManagingElement = () => {
+    setIsManaging((prev) => !prev);
+    console.log(isManaging);
+  };
+  const handleReorderItems = (updatedItems: string[]) => {
+    setSavedItems(updatedItems);
+    setMarkdownText(updatedItems.join('\n\n'));
+  };
   const selectedSection =
     templates.sections?.find((section) => section.id === selectedSectionId) ||
     null;
@@ -132,21 +142,35 @@ const Sidebar: React.FC = () => {
               )}
             </ListItem>
           )}
+          {isPlayground && savedItems.length > 1 && (
+            <ListItem
+              onClick={handleManagingElement}
+              sx={{ cursor: 'pointer' }}
+            >
+              <LowPriorityIcon color="secondary" />
+
+              {isExpanded && <ListItemText secondary="Manage" sx={{ px: 2 }} />}
+            </ListItem>
+          )}
         </List>
 
         {/* Scrollable MarkdownSection when expanded */}
         <Box
           sx={{
-            flexGrow: 1,
+            // flexGrow: 1,
+            marginTop: '4rem',
             overflowY: 'auto',
-            paddingX: isExpanded ? 2 : 0,
+            paddingX: isExpanded ? 5 : 0,
           }}
         >
-          {isPlayground && isExpanded && selectedSection && (
+          {isPlayground && isExpanded && !isManaging && selectedSection && (
             <MarkdownSection
               section={selectedSection}
               onSelectElement={handleSelectElement}
             />
+          )}
+          {isPlayground && isExpanded && isManaging && (
+            <MarkdownManager onReorderItems={handleReorderItems} />
           )}
         </Box>
 
