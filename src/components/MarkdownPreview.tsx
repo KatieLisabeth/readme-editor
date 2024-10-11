@@ -18,7 +18,7 @@ const MarkdownPreview: React.FC<IMarkdownPreview> = ({
         }}
       >
         <Typography variant="h6" gutterBottom>
-          Markdown Preview
+          Preview
         </Typography>
       </Box>
       <Paper
