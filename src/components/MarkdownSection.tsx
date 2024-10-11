@@ -7,15 +7,17 @@ const MarkdownSection: React.FC<IMarkdownSection> = ({
   if (!section) {
     return (
       <Box sx={{ padding: '1rem' }}>
-        <Typography variant="h6">Please select a section</Typography>
+        <Typography variant="h1" component="h2">
+          Please select a section
+        </Typography>
       </Box>
     );
   }
 
   return (
     <Box>
-      <Typography variant="h6" sx={{ paddingLeft: '1rem', paddingTop: '1rem' }}>
-        {section.title}
+      <Typography variant="h6" sx={{ paddingTop: '1rem' }}>
+        Selected {section.title}
       </Typography>
       <List>
         {section.element.map((el) => (
