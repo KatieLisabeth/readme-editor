@@ -115,12 +115,6 @@ const markdown: IConfig = {
           element: 'Custom Containers (Callouts)',
           syntax: '::: info\nThis is an info block.\n:::',
         },
-      ],
-    },
-    {
-      id: 'custom-elements',
-      title: 'User-Specific Elements (README, Portfolio)',
-      element: [
         {
           id: '32',
           element: 'README Template',
