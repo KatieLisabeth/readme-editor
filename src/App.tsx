@@ -57,13 +57,14 @@ export default function App() {
                   )}
                 </IconButton>
               </Box>
-
+              {/* Body */}
               <Box
                 sx={{
                   flexGrow: 1,
                   padding: '1rem',
                 }}
               >
+                {/* Github star button */}
                 <Box
                   sx={{
                     position: 'absolute',
@@ -79,6 +80,7 @@ export default function App() {
                     style={{ border: 'none' }}
                   ></iframe>
                 </Box>
+                {/* Pages */}
                 <AppRoutes />
               </Box>
 
