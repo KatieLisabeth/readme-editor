@@ -19,9 +19,9 @@ import {
 import logo from 'assets/logo.png';
 import MarkdownSection from 'components/MarkdownSection';
 import { useMarkdownContext } from 'config/Context';
-import markdown from 'config/markdown';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import templates from 'utils/templates';
 
 const Sidebar: React.FC = () => {
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
@@ -49,7 +49,7 @@ const Sidebar: React.FC = () => {
   };
 
   const selectedSection =
-    markdown.sections?.find((section) => section.id === selectedSectionId) ||
+    templates.sections?.find((section) => section.id === selectedSectionId) ||
     null;
 
   const isPlayground = location.pathname === '/playground';
@@ -122,7 +122,7 @@ const Sidebar: React.FC = () => {
                     onChange={handleSectionSelect}
                     label="Select Section"
                   >
-                    {markdown.sections?.map((section) => (
+                    {templates.sections?.map((section) => (
                       <MenuItem key={section.id} value={section.id}>
                         {section.title}
                       </MenuItem>
