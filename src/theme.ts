@@ -1,4 +1,3 @@
-import { red } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
@@ -25,7 +24,7 @@ const lightTheme = createTheme({
       main: '#19899a',
     },
     error: {
-      main: red.A400,
+      main: '#f4a261',
     },
     background: {
       default: '#ffffff',
@@ -52,7 +51,7 @@ const darkTheme = createTheme({
       main: '#80cbc4',
     },
     error: {
-      main: red.A200,
+      main: '#e76f51',
     },
     background: {
       default: '#0f172a',
