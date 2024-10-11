@@ -48,6 +48,10 @@ declare global {
     rehypeDocument: any;
     remarkGfm: any;
   };
+
+  type IMarkdownManager = {
+    onReorderItems: (updatedItems: string[]) => void;
+  };
 }
 
 export {};
