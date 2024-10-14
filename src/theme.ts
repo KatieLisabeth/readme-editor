@@ -18,21 +18,24 @@ const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#1985aa99',
+      main: '#9AC8CD',
+    },
+    action: {
+      hover: '#00999915',
     },
     secondary: {
-      main: '#19899a',
+      main: '#0E46A3',
     },
     error: {
-      main: '#ed6a5a',
+      main: '#FF8551',
     },
     background: {
       default: '#ffffff',
-      paper: '#f5f5f5',
+      paper: '#E1F7F5',
     },
     text: {
       primary: '#555555',
-      secondary: '#16c197',
+      secondary: '#1E0342',
     },
   },
   customBackground: {
@@ -45,13 +48,16 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#90caf9',
+      main: '#FF71CD',
+    },
+    action: {
+      hover: '#00999911',
     },
     secondary: {
-      main: '#80cbc4',
+      main: '#114ee9',
     },
     error: {
-      main: '#dd9787',
+      main: '#FF71CD',
     },
     background: {
       default: '#0f172a',
@@ -59,7 +65,7 @@ const darkTheme = createTheme({
     },
     text: {
       primary: '#16c197',
-      secondary: '#16d287',
+      secondary: '#37B7C3',
     },
   },
   customBackground: {
