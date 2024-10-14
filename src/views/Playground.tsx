@@ -42,7 +42,7 @@ const Playground: React.FC = () => {
   };
 
   return (
-    <Container maxWidth={'lg'}>
+    <Container>
       <Box
         sx={{
           height: '100%',
