@@ -53,12 +53,12 @@ const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, cancel!',
+      cancelButtonColor: theme.palette.error.main,
       confirmButtonColor: theme.palette.secondary.main,
-      cancelButtonColor: 'red',
       color: theme.palette.mode === 'light' ? '#333' : '#fff',
       background:
         theme.palette.mode === 'light'
-          ? '#ffc'
+          ? '#F5F7F8'
           : theme.customBackground.gradient,
       reverseButtons: true,
     }).then((result) => {
@@ -88,7 +88,6 @@ const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
               padding: hoveredIndex === index ? '0.5rem' : '0.2rem',
               border:
                 hoveredIndex === index ? '2px dashed #09c' : '1px solid #ddd',
-
               borderRadius: '5px',
               marginBottom: '0.5rem',
               display: 'flex',
@@ -96,6 +95,12 @@ const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
               justifyContent: 'space-between',
               cursor: 'grab',
               wordWrap: 'wrap',
+              transition: 'background-color 0.3s ease',
+              backgroundColor: hoveredIndex === index ? '#eee' : 'inherit',
+              '&:hover': {
+                backgroundColor: theme.palette.action.hover,
+                color: theme.palette.mode === 'light' ? '#333' : '#37B7C3',
+              },
             }}
             draggable
             onDragStart={() => handleDragStart(index)}
@@ -105,7 +110,14 @@ const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
           >
             <Typography
               variant="body1"
-              sx={{ display: 'flex', alignItems: 'center', cursor: 'grab' }}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                cursor: 'grab',
+                '&:hover': {
+                  color: theme.palette.mode === 'light' ? '#333' : '#114ee9',
+                },
+              }}
             >
               <span
                 style={{
@@ -128,6 +140,11 @@ const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
             <IconButton
               aria-label="delete"
               onClick={() => handleDeletingItem(index)}
+              sx={{
+                '&:hover': {
+                  color: theme.palette.error.main,
+                },
+              }}
             >
               <Tooltip title="Click to delete">
                 <DeleteForeverTwoToneIcon

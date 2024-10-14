@@ -24,7 +24,7 @@ const MarkdownEditor: React.FC<IMarkdownEditor> = ({
       <Box sx={{ marginBottom: '1rem' }}>
         <TextField
           multiline
-          rows={20}
+          minRows={20}
           variant="outlined"
           fullWidth
           value={combinedMarkdown}

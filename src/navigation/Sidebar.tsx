@@ -6,6 +6,7 @@ import LowPriorityIcon from '@mui/icons-material/LowPriority';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {
   Box,
+  Divider,
   Drawer,
   FormControl,
   IconButton,
@@ -18,6 +19,7 @@ import {
   SelectChangeEvent,
   Tooltip,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import logo from 'assets/logo.png';
 import MarkdownManager from 'components/MarkdownManager';
 import MarkdownSection from 'components/MarkdownSection';
@@ -32,7 +34,7 @@ const Sidebar: React.FC = () => {
   const [selectedSectionId, setSelectedSectionId] = React.useState<string>('');
   const { setMarkdownText, setSavedItems, savedItems } = useMarkdownContext();
   const location = useLocation();
-
+  const theme = useTheme();
   const navigate = useNavigate();
 
   const toggleSidebar = () => {
@@ -71,12 +73,12 @@ const Sidebar: React.FC = () => {
       <Drawer
         variant="permanent"
         sx={{
-          width: isExpanded ? 300 : 60,
+          width: isExpanded ? 333 : 60,
           display: 'flex',
           justifyContent: isExpanded ? 'end' : 'center',
           padding: 0,
           '& .MuiDrawer-paper': {
-            width: isExpanded ? 300 : 60,
+            width: isExpanded ? 333 : 60,
             transition: 'width 0.3s ease',
           },
         }}
@@ -172,11 +174,13 @@ const Sidebar: React.FC = () => {
             </ListItem>
           )}
         </List>
-
+        <Divider />
         {/* Scrollable MarkdownSection when expanded */}
         <Box
           sx={{
-            marginTop: '4rem',
+            flex: 1,
+            marginTop: '1rem',
+            // marginBottom: '3rem',
             overflowY: 'auto',
             paddingX: isExpanded ? 2.5 : 0,
           }}
@@ -197,12 +201,31 @@ const Sidebar: React.FC = () => {
           sx={{
             position: 'fixed',
             bottom: 0,
-            left: 0,
-            width: isExpanded ? 300 : 60,
+            left: isExpanded ? 332 : 10,
+            background: isExpanded
+              ? theme.palette.mode === 'light'
+                ? `${theme.palette.background.paper}`
+                : '#0f122c'
+              : 'transparent',
+            borderRight: isExpanded
+              ? theme.palette.mode === 'light'
+                ? '1px solid #D8D9DA'
+                : '1px solid #45474B'
+              : 'transparent',
+            borderTop: isExpanded
+              ? theme.palette.mode === 'light'
+                ? '1px solid  #D8D9DA'
+                : '1px solid #45474B'
+              : 'transparent',
+            borderBottom: isExpanded
+              ? theme.palette.mode === 'light'
+                ? '1px solid  #D8D9DA'
+                : '1px solid #45474B'
+              : 'transparent',
+            borderRadius: isExpanded ? '0px 30px 30px 0px' : '',
             display: 'flex',
             justifyContent: isExpanded ? 'end' : 'center',
-            alignItems: 'center',
-            mb: 2,
+            mb: 1,
           }}
         >
           <IconButton onClick={toggleSidebar}>
