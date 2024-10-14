@@ -1,9 +1,11 @@
 import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 const MarkdownSection: React.FC<IMarkdownSection> = ({
   section,
   onSelectElement,
 }) => {
+  const theme = useTheme();
   if (!section) {
     return (
       <Box sx={{ padding: '1rem' }}>
@@ -22,7 +24,17 @@ const MarkdownSection: React.FC<IMarkdownSection> = ({
       <List>
         {section.element.map((el) => (
           <ListItem key={el.id} onClick={() => onSelectElement([el.syntax])}>
-            <ListItemText primary={el.element} />
+            <ListItemText
+              primary={el.element}
+              sx={{
+                px: 2,
+                cursor: 'pointer',
+                '&:hover': {
+                  color: theme.palette.mode === 'light' ? '#333' : '#16a199',
+                  fontWeight: 'bold',
+                },
+              }}
+            />
           </ListItem>
         ))}
       </List>
