@@ -24,14 +24,17 @@ const MarkdownEditor: React.FC<IMarkdownEditor> = ({
       <Box sx={{ marginBottom: '1rem' }}>
         <TextField
           multiline
-          minRows={20}
+          rows={10}
           variant="outlined"
           fullWidth
           value={combinedMarkdown}
           onChange={handleTextChange}
           placeholder="Edit all markdown items here"
-          inputProps={{
-            style: { fontFamily: 'monospace' },
+          slotProps={{ input: { style: { fontFamily: 'monospace' } } }}
+          sx={{
+            '& textarea': {
+              minHeight: '51px',
+            },
           }}
         />
       </Box>

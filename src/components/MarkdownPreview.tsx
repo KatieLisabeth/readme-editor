@@ -1,4 +1,7 @@
 import { Box, Paper, Typography } from '@mui/material';
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
+import remarkEmoji from 'remark-emoji';
 
 const MarkdownPreview: React.FC<IMarkdownPreview> = ({
   markdownText,
@@ -26,11 +29,19 @@ const MarkdownPreview: React.FC<IMarkdownPreview> = ({
         sx={{
           padding: '1rem',
           height: '100%',
+          maxHeight: '540px',
+          overflow: 'auto',
         }}
       >
-        <ReactMarkdown remarkPlugins={[remarkGfm, rehypeDocument]}>
-          {markdownText}
-        </ReactMarkdown>
+        {ReactMarkdown && (
+          <ReactMarkdown
+            className="content"
+            remarkPlugins={[remarkGfm, remarkEmoji]}
+            rehypePlugins={[rehypeDocument, rehypeRaw, rehypeSanitize]}
+          >
+            {markdownText}
+          </ReactMarkdown>
+        )}
       </Paper>
     </Box>
   );

@@ -19,6 +19,7 @@ export default function App() {
   });
 
   useEffect(() => {
+    document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
@@ -31,13 +32,21 @@ export default function App() {
   return (
     <ThemeProvider theme={currentTheme}>
       <CssBaseline />
+
       <Router>
         <MarkdownProvider>
-          <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+          <Box sx={{ display: 'flex', height: '100vh' }}>
             <Sidebar />
 
             {/* Main Content Area */}
-            <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                margin: 0,
+              }}
+            >
               <Box
                 sx={{
                   display: 'flex',
@@ -60,8 +69,7 @@ export default function App() {
               {/* Body */}
               <Box
                 sx={{
-                  flexGrow: 1,
-                  padding: '1rem',
+                  paddingX: '1rem',
                 }}
               >
                 {/* Github star button */}

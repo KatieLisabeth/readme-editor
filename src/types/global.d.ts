@@ -8,7 +8,7 @@ declare global {
   type ISection = {
     id: string;
     title: string;
-    element: IElement[];
+    elements: IElement[];
   };
 
   type IConfig = {
