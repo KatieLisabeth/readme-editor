@@ -5,6 +5,18 @@ import MarkdownPreview from 'components/MarkdownPreview';
 import { useMarkdownContext } from 'config/Context';
 import React, { useEffect, useState } from 'react';
 
+const debounce = <T extends (...args: any[]) => void>(
+  func: T,
+  delay: number
+) => {
+  let timeoutId: NodeJS.Timeout;
+
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func(...args), delay);
+  };
+};
+
 const Playground: React.FC = () => {
   const { savedItems, setSavedItems, setMarkdownText } = useMarkdownContext();
   const [ReactMarkdown, setReactMarkdown] = useState<any>(null);
@@ -26,10 +38,10 @@ const Playground: React.FC = () => {
     loadModules();
   }, []);
 
-  const handleMarkdownChange = (updatedItems: string[]) => {
+  const debouncedHandleMarkdownChange = debounce((updatedItems: string[]) => {
     setSavedItems(updatedItems);
-    setMarkdownText(updatedItems.join('\n\n'));
-  };
+    setMarkdownText(updatedItems.join('\n'));
+  }, 300);
 
   const downloadMarkdown = () => {
     const blob = new Blob([savedItems.join('\n\n')], { type: 'text/markdown' });
@@ -45,11 +57,10 @@ const Playground: React.FC = () => {
     <Container>
       <Box
         sx={{
-          height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          my: 2,
+          mX: 2,
         }}
       >
         <Typography variant="h4">Markdown Playground</Typography>
@@ -67,19 +78,28 @@ const Playground: React.FC = () => {
           border: '1px solid #ccc',
           borderRadius: '8px',
           padding: '1rem',
-          overflowY: 'auto',
+          overflowY: 'hidden',
         }}
       >
-        <Box sx={{ width: '50%', paddingRight: '1rem' }}>
+        <Box
+          sx={{
+            width: '50%',
+            paddingRight: '1rem',
+            height: '100%',
+            overflowY: 'hidden',
+          }}
+        >
           <MarkdownEditor
             savedItems={savedItems}
-            onMarkdownChange={handleMarkdownChange}
+            onMarkdownChange={debouncedHandleMarkdownChange}
           />
         </Box>
 
         <Box
           sx={{
             width: '50%',
+            height: '100%',
+            overflowY: 'hidden',
             paddingLeft: '1rem',
             borderLeft: '1px solid #ddd',
           }}
