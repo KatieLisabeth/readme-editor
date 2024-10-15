@@ -22,7 +22,7 @@ const MarkdownSection: React.FC<IMarkdownSection> = ({
         Selected {section.title}
       </Typography>
       <List>
-        {section.element.map((el) => (
+        {section.elements.map((el) => (
           <ListItem key={el.id} onClick={() => onSelectElement([el.syntax])}>
             <ListItemText
               primary={el.element}
