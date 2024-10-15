@@ -4,9 +4,12 @@
     "Cantarell",
     "Consolas",
     "craco",
+    "emojified",
+    "emojione",
     "Fira",
     "fontsource",
     "grayscale",
+    "katielisabeth",
     "Menlo",
     "Neue",
     "predeploy",
@@ -15,6 +18,9 @@
     "Segoe",
     "swal",
     "sweetalert",
+    "tbody",
+    "tfoot",
+    "thead",
     "webfonts"
   ]
 }
