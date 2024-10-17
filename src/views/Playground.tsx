@@ -1,27 +1,28 @@
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
-import { Box, Button, Container, Tooltip, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Tooltip,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import MarkdownEditor from 'components/MarkdownEditor';
 import MarkdownPreview from 'components/MarkdownPreview';
 import { useMarkdownContext } from 'config/Context';
 import React, { useEffect, useState } from 'react';
-
-const debounce = <T extends (...args: any[]) => void>(
-  func: T,
-  delay: number
-) => {
-  let timeoutId: NodeJS.Timeout;
-
-  return (...args: Parameters<T>) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func(...args), delay);
-  };
-};
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 const Playground: React.FC = () => {
-  const { savedItems, setSavedItems, setMarkdownText } = useMarkdownContext();
+  const { savedItems, setSavedItems, setMarkdownText, resetMarkdown } =
+    useMarkdownContext();
   const [ReactMarkdown, setReactMarkdown] = useState<any>(null);
   const [rehypeDocument, setRehypeDocument] = useState<any>(null);
   const [remarkGfm, setRemarkGfm] = useState<any>(null);
+
+  const theme = useTheme();
 
   useEffect(() => {
     const loadModules = async () => {
@@ -38,10 +39,10 @@ const Playground: React.FC = () => {
     loadModules();
   }, []);
 
-  const debouncedHandleMarkdownChange = debounce((updatedItems: string[]) => {
+  const handleMarkdownChange = (updatedItems: string[]) => {
     setSavedItems(updatedItems);
     setMarkdownText(updatedItems.join('\n'));
-  }, 300);
+  };
 
   const downloadMarkdown = () => {
     const blob = new Blob([savedItems.join('\n\n')], { type: 'text/markdown' });
@@ -53,10 +54,34 @@ const Playground: React.FC = () => {
     document.body.removeChild(link);
   };
 
+  const handleResetFile = () => {
+    Swal.fire({
+      title: 'Reset Confirmation',
+      text: 'This will remove all selected items from your README. Do you wish to proceed?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, reset it!',
+      cancelButtonText: 'No, cancel!',
+      cancelButtonColor: theme.palette.error.main,
+      confirmButtonColor: theme.palette.secondary.main,
+      color: theme.palette.mode === 'light' ? '#333' : '#fff',
+      background:
+        theme.palette.mode === 'light'
+          ? '#F5F7F8'
+          : theme.customBackground.gradient,
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        resetMarkdown();
+      }
+    });
+  };
+
   return (
     <Container>
       <Box
         sx={{
+          height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -64,11 +89,26 @@ const Playground: React.FC = () => {
         }}
       >
         <Typography variant="h4">Markdown Playground</Typography>
-        <Tooltip title="Click to download README file">
-          <Button onClick={downloadMarkdown} variant="contained">
-            Download <CloudDownloadIcon sx={{ ml: 2 }} />
-          </Button>
-        </Tooltip>
+        <Box>
+          <Tooltip title="Click to reset README file">
+            <Button
+              onClick={handleResetFile}
+              variant="contained"
+              sx={{ mr: 2, py: 0.3, px: 1.3 }}
+            >
+              Reset <AutorenewIcon sx={{ ml: 0.3 }} />
+            </Button>
+          </Tooltip>
+          <Tooltip title="Click to download README file">
+            <Button
+              onClick={downloadMarkdown}
+              variant="contained"
+              sx={{ py: 0.3, px: 1.3 }}
+            >
+              Download <CloudDownloadIcon sx={{ ml: 1 }} />
+            </Button>
+          </Tooltip>
+        </Box>
       </Box>
 
       <Box
@@ -91,17 +131,16 @@ const Playground: React.FC = () => {
         >
           <MarkdownEditor
             savedItems={savedItems}
-            onMarkdownChange={debouncedHandleMarkdownChange}
+            onMarkdownChange={handleMarkdownChange}
           />
         </Box>
-
+        <Divider orientation="vertical" variant="middle" flexItem />
         <Box
           sx={{
             width: '50%',
             height: '100%',
             overflowY: 'hidden',
             paddingLeft: '1rem',
-            borderLeft: '1px solid #ddd',
           }}
         >
           {ReactMarkdown && rehypeDocument && remarkGfm && (
