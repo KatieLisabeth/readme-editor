@@ -16,9 +16,20 @@ export const MarkdownProvider: React.FC<IMarkdownProvider> = ({ children }) => {
     sessionStorage.setItem(MARKDOWN_KEY, JSON.stringify(savedItems));
   }, [savedItems]);
 
+  const resetMarkdown = () => {
+    sessionStorage.removeItem(MARKDOWN_KEY);
+    setSavedItems([]);
+  };
+
   return (
     <Context.Provider
-      value={{ markdownText, setMarkdownText, savedItems, setSavedItems }}
+      value={{
+        markdownText,
+        setMarkdownText,
+        savedItems,
+        setSavedItems,
+        resetMarkdown,
+      }}
     >
       {children}
     </Context.Provider>

@@ -21,6 +21,7 @@ declare global {
     setMarkdownText: React.Dispatch<React.SetStateAction<string>>;
     savedItems: string[];
     setSavedItems: React.Dispatch<React.SetStateAction<string[]>>;
+    resetMarkdown: () => void;
   };
 
   type IMarkdownProvider = {
