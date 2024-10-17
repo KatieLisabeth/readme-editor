@@ -47,8 +47,8 @@ const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
 
   const handleDeletingItem = (index: number) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Confirm Deletion?',
+      text: 'The selected item will be permanently removed. Proceed?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
