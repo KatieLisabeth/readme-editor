@@ -17,7 +17,16 @@ const MarkdownEditor: React.FC<IMarkdownEditor> = ({
 
   return (
     <Box>
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h6"
+        sx={{
+          fontSize: {
+            xs: '1rem',
+            sm: '1.5rem',
+          },
+        }}
+        gutterBottom
+      >
         Editor
       </Typography>
 

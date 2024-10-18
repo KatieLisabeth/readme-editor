@@ -20,7 +20,16 @@ const MarkdownPreview: React.FC<IMarkdownPreview> = ({
           pb: 0.5,
         }}
       >
-        <Typography variant="h6" gutterBottom>
+        <Typography
+          variant="h6"
+          sx={{
+            fontSize: {
+              xs: '1rem',
+              sm: '1.5rem',
+            },
+          }}
+          gutterBottom
+        >
           Preview
         </Typography>
       </Box>
