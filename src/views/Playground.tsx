@@ -78,7 +78,7 @@ const Playground: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth="lg">
       <Box
         sx={{
           height: '100%',
@@ -86,15 +86,52 @@ const Playground: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           mX: 2,
+          flexDirection: {
+            xs: 'column',
+            sm: 'row',
+          },
+          gap: {
+            xs: 2,
+            sm: 0,
+          },
         }}
       >
-        <Typography variant="h4">Markdown Playground</Typography>
-        <Box>
+        <Typography
+          variant="h4"
+          sx={{
+            fontSize: {
+              xs: '1.3rem',
+              sm: '1.8rem',
+            },
+          }}
+        >
+          Markdown Playground
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            gap: 2,
+            marginBottom: '.5rem',
+            width: {
+              xs: '100%',
+              sm: '50%',
+            },
+          }}
+        >
           <Tooltip title="Click to reset README file">
             <Button
               onClick={handleResetFile}
               variant="contained"
-              sx={{ mr: 2, py: 0.3, px: 1.3 }}
+              sx={{
+                py: 0.3,
+                px: 1.3,
+                fontSize: {
+                  xs: '.6rem',
+                  sm: '.8rem',
+                },
+              }}
             >
               Reset <AutorenewIcon sx={{ ml: 0.3 }} />
             </Button>
@@ -103,7 +140,14 @@ const Playground: React.FC = () => {
             <Button
               onClick={downloadMarkdown}
               variant="contained"
-              sx={{ py: 0.3, px: 1.3 }}
+              sx={{
+                py: 0.3,
+                px: 1.3,
+                fontSize: {
+                  xs: '.6rem',
+                  sm: '.8rem',
+                },
+              }}
             >
               Download <CloudDownloadIcon sx={{ ml: 1 }} />
             </Button>
@@ -114,19 +158,27 @@ const Playground: React.FC = () => {
       <Box
         sx={{
           display: 'flex',
+          flexDirection: {
+            xs: 'column',
+            sm: 'row',
+          },
           height: '100%',
           border: '1px solid #ccc',
           borderRadius: '8px',
           padding: '1rem',
           overflowY: 'hidden',
+          gap: 2,
         }}
       >
         <Box
           sx={{
-            width: '50%',
-            paddingRight: '1rem',
+            width: {
+              xs: '100%',
+              sm: '50%',
+            },
+            paddingRight: { xs: 0, sm: '1rem' },
             height: '100%',
-            overflowY: 'hidden',
+            overflowY: 'auto',
           }}
         >
           <MarkdownEditor
@@ -134,13 +186,23 @@ const Playground: React.FC = () => {
             onMarkdownChange={handleMarkdownChange}
           />
         </Box>
-        <Divider orientation="vertical" variant="middle" flexItem />
+        <Divider
+          orientation="vertical"
+          variant="middle"
+          flexItem
+          sx={{
+            display: { xs: 'none', sm: 'block' },
+          }}
+        />
         <Box
           sx={{
-            width: '50%',
+            width: {
+              xs: '100%',
+              sm: '50%',
+            },
             height: '100%',
-            overflowY: 'hidden',
-            paddingLeft: '1rem',
+            overflowY: 'auto',
+            paddingLeft: { xs: 0, sm: '1rem' },
           }}
         >
           {ReactMarkdown && rehypeDocument && remarkGfm && (
