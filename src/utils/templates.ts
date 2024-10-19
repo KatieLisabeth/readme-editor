@@ -200,8 +200,8 @@ const markdown: IConfig = {
       ],
     },
     {
-      id: 'frontend-frameworks',
-      title: 'Front-End Frameworks',
+      id: 'skills',
+      title: 'Developer skills',
       elements: [
         {
           id: 'ff-1',
@@ -269,12 +269,6 @@ const markdown: IConfig = {
           syntax:
             '<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="TypeScript" width="30" height="30" />',
         },
-      ],
-    },
-    {
-      id: 'backend-languages',
-      title: 'Back-End Languages',
-      elements: [
         {
           id: 'bl-1',
           element: 'Node.js',
@@ -329,12 +323,6 @@ const markdown: IConfig = {
           syntax:
             '<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/rust/rust-plain.svg" alt="Rust" width="30" height="30" />',
         },
-      ],
-    },
-    {
-      id: 'databases',
-      title: 'Databases',
-      elements: [
         {
           id: 'db-1',
           element: 'MySQL',
@@ -377,12 +365,6 @@ const markdown: IConfig = {
           syntax:
             '<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cassandra/cassandra-original.svg" alt="Cassandra" width="30" height="30" />',
         },
-      ],
-    },
-    {
-      id: 'deployment-servers-tools',
-      title: 'Deployment Servers and Tools',
-      elements: [
         {
           id: 'ds-1',
           element: 'AWS',
@@ -452,8 +434,8 @@ const markdown: IConfig = {
       ],
     },
     {
-      id: 'developer-social-media',
-      title: 'Developer Social Media',
+      id: 'social-media',
+      title: 'Social Media',
       elements: [
         {
           id: 'sm-1',
