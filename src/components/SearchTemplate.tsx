@@ -21,7 +21,6 @@ const SearchTemplates = () => {
       return;
     }
 
-    // Filter elements to match those starting with the search term
     const elementsWithSection = templates.sections.flatMap(
       (section: ISection) =>
         section.elements
@@ -74,7 +73,7 @@ const SearchTemplates = () => {
             onSelectElement={(syntax) => handleSelect(syntax)}
           />
         ) : (
-          <p>No elements found</p>
+          searchTerm && <p>No elements found</p>
         )}
       </div>
     </div>
