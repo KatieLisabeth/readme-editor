@@ -49,10 +49,10 @@ const SearchTemplates = () => {
         component="form"
         sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 300 }}
       >
-        <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
+        <IconButton color="primary" sx={{ p: '4px' }} aria-label="directions">
           <SearchIcon />
         </IconButton>
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+        <Divider sx={{ height: 22, m: 0.5 }} orientation="vertical" />
         <InputBase
           sx={{ ml: 1 }}
           placeholder="Search for an element"
@@ -71,6 +71,7 @@ const SearchTemplates = () => {
               elements: filteredElements.map((item) => item.element),
             }}
             onSelectElement={(syntax) => handleSelect(syntax)}
+            isDropdown={true}
           />
         ) : (
           searchTerm && <p>No elements found</p>
