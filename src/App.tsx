@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
 import { ThemeProvider } from '@mui/material/styles';
+import SearchTemplates from 'components/SearchTemplate';
 import { MarkdownProvider } from 'config/Context';
 import Footer from 'navigation/Footer';
 import Sidebar from 'navigation/Sidebar';
@@ -57,6 +58,7 @@ export default function App() {
                   zIndex: 10,
                 }}
               >
+                <SearchTemplates />
                 {/* Theme Switch Button */}
                 <IconButton onClick={handleThemeSwitch} color="inherit">
                   {isDarkMode ? (
