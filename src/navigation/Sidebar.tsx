@@ -23,6 +23,7 @@ import { useTheme } from '@mui/material/styles';
 import logo from 'assets/logo.png';
 import MarkdownManager from 'components/MarkdownManager';
 import MarkdownSection from 'components/MarkdownSection';
+import SearchTemplates from 'components/SearchTemplate';
 import { useMarkdownContext } from 'config/Context';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -129,12 +130,14 @@ const Sidebar: React.FC = () => {
               />
             )}
           </ListItem>
+          <SearchTemplates />
           {/* Section Selector for Playground */}
           {isPlayground && (
             <ListItem>
               <Tooltip title="Click to select">
                 <ListAltIcon color="secondary" sx={{ cursor: 'pointer' }} />
               </Tooltip>
+
               {isExpanded && (
                 <FormControl fullWidth>
                   <InputLabel id="section-select-label">Select</InputLabel>
