@@ -51,6 +51,11 @@ declare global {
     remarkGfm: any;
   };
 
+  type IMarkdownSelector = {
+    value: string;
+    onChange: (event: SelectChangeEvent<string>) => void;
+  };
+
   type IMarkdownManager = {
     onReorderItems: (updatedItems: string[]) => void;
   };
