@@ -2,6 +2,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Divider, IconButton, InputBase, Paper } from '@mui/material';
 import { useMarkdownContext } from 'config/Context';
 import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import templates from 'utils/templates';
 import MarkdownSection from './Section';
 
@@ -10,6 +11,7 @@ const SearchBar = () => {
   const [filteredElements, setFilteredElements] = useState<
     { sectionTitle: string; element: IElement }[]
   >([]);
+  const location = useLocation();
   const { setMarkdownText, setSavedItems, savedItems } = useMarkdownContext();
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,25 +63,33 @@ const SearchBar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+  const isPlayground = location.pathname === '/playground';
 
   return (
     <div ref={searchBarRef}>
-      <Paper
-        component="form"
-        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 300 }}
-      >
-        <IconButton color="primary" sx={{ p: '4px' }} aria-label="directions">
-          <SearchIcon />
-        </IconButton>
-        <Divider sx={{ height: 22, m: 0.5 }} orientation="vertical" />
-        <InputBase
-          sx={{ ml: 1 }}
-          placeholder="Search for an element"
-          inputProps={{ 'aria-label': 'search for an element' }}
-          value={searchTerm}
-          onChange={handleSearch}
-        />
-      </Paper>
+      {isPlayground ? (
+        <Paper
+          component="form"
+          sx={{
+            p: '2px 4px',
+            display: 'flex',
+            alignItems: 'center',
+            width: 300,
+          }}
+        >
+          <IconButton color="primary" sx={{ p: '4px' }} aria-label="directions">
+            <SearchIcon />
+          </IconButton>
+          <Divider sx={{ height: 22, m: 0.5 }} orientation="vertical" />
+          <InputBase
+            sx={{ ml: 1 }}
+            placeholder="Search for an element"
+            inputProps={{ 'aria-label': 'search for an element' }}
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+        </Paper>
+      ) : null}
 
       <div style={{ listStyleType: 'none', padding: 0 }}>
         {filteredElements.length > 0 ? (
