@@ -59,7 +59,7 @@ export default function App() {
                 }}
               >
                 <SearchBar />
-                {/* itch Button */}
+                {/* Switch Button */}
                 <IconButton onClick={handleThemeSwitch} color="inherit">
                   {isDarkMode ? (
                     <LightModeIcon color="warning" />
@@ -71,6 +71,7 @@ export default function App() {
               {/* Body */}
               <Box
                 sx={{
+                  flex: 1,
                   paddingX: '1rem',
                 }}
               >
