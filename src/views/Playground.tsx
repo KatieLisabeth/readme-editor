@@ -1,5 +1,7 @@
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import LowPriorityIcon from '@mui/icons-material/LowPriority';
 import {
   Box,
   Button,
@@ -10,6 +12,7 @@ import {
   useTheme,
 } from '@mui/material';
 import MarkdownEditor from 'components/MarkdownEditor';
+import MarkdownManager from 'components/MarkdownManager';
 import MarkdownPreview from 'components/MarkdownPreview';
 import { useMarkdownContext } from 'config/Context';
 import React, { useEffect, useState } from 'react';
@@ -21,6 +24,7 @@ const Playground: React.FC = () => {
   const [ReactMarkdown, setReactMarkdown] = useState<any>(null);
   const [rehypeDocument, setRehypeDocument] = useState<any>(null);
   const [remarkGfm, setRemarkGfm] = useState<any>(null);
+  const [isManaging, setIsManaging] = React.useState<boolean>(false);
 
   const theme = useTheme();
 
@@ -75,6 +79,17 @@ const Playground: React.FC = () => {
         resetMarkdown();
       }
     });
+  };
+  const handleReorderItems = (updatedItems: string[]) => {
+    setSavedItems(updatedItems);
+    setMarkdownText(updatedItems.join('\n\n'));
+  };
+
+  const handleManagingElement = () => {
+    setIsManaging(true);
+  };
+  const handleEditingElement = () => {
+    setIsManaging(false);
   };
 
   return (
@@ -181,10 +196,61 @@ const Playground: React.FC = () => {
             overflowY: 'auto',
           }}
         >
-          <MarkdownEditor
-            savedItems={savedItems}
-            onMarkdownChange={handleMarkdownChange}
-          />
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            {!isManaging ? (
+              <>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: {
+                      xs: '1rem',
+                      sm: '1.5rem',
+                    },
+                  }}
+                  gutterBottom
+                >
+                  Editor
+                </Typography>
+                <Tooltip title="Click to manage README Items">
+                  <LowPriorityIcon
+                    color="secondary"
+                    onClick={handleManagingElement}
+                  />
+                </Tooltip>
+              </>
+            ) : (
+              <>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: {
+                      xs: '1rem',
+                      sm: '1.5rem',
+                    },
+                  }}
+                  gutterBottom
+                >
+                  Reorder or delete items
+                </Typography>
+
+                <Tooltip title="Click to Edit README">
+                  <EditNoteIcon
+                    color="secondary"
+                    onClick={handleEditingElement}
+                  />
+                </Tooltip>
+              </>
+            )}
+          </Box>
+
+          {!isManaging ? (
+            <MarkdownEditor
+              savedItems={savedItems}
+              onMarkdownChange={handleMarkdownChange}
+            />
+          ) : (
+            <MarkdownManager onReorderItems={handleReorderItems} />
+          )}
         </Box>
         <Divider
           orientation="vertical"
