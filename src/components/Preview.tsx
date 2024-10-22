@@ -3,7 +3,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkEmoji from 'remark-emoji';
 
-const MarkdownPreview: React.FC<IMarkdownPreview> = ({
+const Preview: React.FC<IMarkdownPreview> = ({
   markdownText,
   ReactMarkdown,
   rehypeDocument,
@@ -56,4 +56,4 @@ const MarkdownPreview: React.FC<IMarkdownPreview> = ({
   );
 };
 
-export default MarkdownPreview;
+export default Preview;

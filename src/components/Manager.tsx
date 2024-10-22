@@ -6,7 +6,7 @@ import { useMarkdownContext } from 'config/Context';
 import { useState } from 'react';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
-const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
+const Manager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
   const { savedItems, setSavedItems } = useMarkdownContext();
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -162,4 +162,4 @@ const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
   );
 };
 
-export default MarkdownManager;
+export default Manager;

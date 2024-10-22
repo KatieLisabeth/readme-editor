@@ -1,7 +1,7 @@
 import { Box, TextField } from '@mui/material';
 import React from 'react';
 
-const MarkdownEditor: React.FC<IMarkdownEditor> = ({
+const Editor: React.FC<IMarkdownEditor> = ({
   savedItems,
   onMarkdownChange,
 }) => {
@@ -36,4 +36,4 @@ const MarkdownEditor: React.FC<IMarkdownEditor> = ({
   );
 };
 
-export default MarkdownEditor;
+export default Editor;

@@ -3,9 +3,9 @@ import { Divider, IconButton, InputBase, Paper } from '@mui/material';
 import { useMarkdownContext } from 'config/Context';
 import { useState } from 'react';
 import templates from 'utils/templates';
-import MarkdownSection from './MarkdownSection';
+import MarkdownSection from './Section';
 
-const SearchTemplates = () => {
+const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredElements, setFilteredElements] = useState<
     { sectionTitle: string; element: IElement }[]
@@ -71,7 +71,6 @@ const SearchTemplates = () => {
               elements: filteredElements.map((item) => item.element),
             }}
             onSelectElement={(syntax) => handleSelect(syntax)}
-            isDropdown={true}
           />
         ) : (
           searchTerm && <p>No elements found</p>
@@ -81,4 +80,4 @@ const SearchTemplates = () => {
   );
 };
 
-export default SearchTemplates;
+export default SearchBar;
