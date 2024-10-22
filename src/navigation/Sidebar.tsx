@@ -2,7 +2,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import HomeIcon from '@mui/icons-material/Home';
 import ListAltIcon from '@mui/icons-material/ListAlt';
-import LowPriorityIcon from '@mui/icons-material/LowPriority';
+
 import SettingsIcon from '@mui/icons-material/Settings';
 import {
   Box,
@@ -21,7 +21,6 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import logo from 'assets/logo.png';
-import MarkdownManager from 'components/MarkdownManager';
 import MarkdownSection from 'components/MarkdownSection';
 import { useMarkdownContext } from 'config/Context';
 import React from 'react';
@@ -30,7 +29,7 @@ import templates from 'utils/templates';
 
 const Sidebar: React.FC = () => {
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
-  const [isManaging, setIsManaging] = React.useState<boolean>(false);
+
   const [selectedSectionId, setSelectedSectionId] = React.useState<string>('');
   const { setMarkdownText, setSavedItems, savedItems } = useMarkdownContext();
   const location = useLocation();
@@ -49,14 +48,6 @@ const Sidebar: React.FC = () => {
   const handleSelectElement = (syntax: string[]) => {
     const combinedSyntax = syntax.join('\n\n');
     const updatedItems = [...savedItems, combinedSyntax];
-    setSavedItems(updatedItems);
-    setMarkdownText(updatedItems.join('\n\n'));
-  };
-
-  const handleManagingElement = () => {
-    setIsManaging((prev) => !prev);
-  };
-  const handleReorderItems = (updatedItems: string[]) => {
     setSavedItems(updatedItems);
     setMarkdownText(updatedItems.join('\n\n'));
   };
@@ -159,22 +150,6 @@ const Sidebar: React.FC = () => {
               )}
             </ListItem>
           )}
-          {isPlayground && savedItems.length > 1 && (
-            <ListItem
-              onClick={handleManagingElement}
-              sx={{ cursor: 'pointer' }}
-            >
-              <Tooltip title="Click to manage">
-                <LowPriorityIcon color="secondary" />
-              </Tooltip>
-              {isExpanded && (
-                <ListItemText
-                  secondary="Manage"
-                  sx={{ px: 2, cursor: 'pointer' }}
-                />
-              )}
-            </ListItem>
-          )}
         </List>
         <Divider />
         {/* Scrollable MarkdownSection when expanded */}
@@ -187,14 +162,11 @@ const Sidebar: React.FC = () => {
             paddingX: isExpanded ? 2.5 : 0,
           }}
         >
-          {isPlayground && isExpanded && !isManaging && selectedSection && (
+          {isPlayground && isExpanded && selectedSection && (
             <MarkdownSection
               section={selectedSection}
               onSelectElement={handleSelectElement}
             />
-          )}
-          {isPlayground && isExpanded && isManaging && (
-            <MarkdownManager onReorderItems={handleReorderItems} />
           )}
         </Box>
 
