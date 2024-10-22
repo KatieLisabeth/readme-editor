@@ -9,7 +9,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
   const { savedItems, setSavedItems } = useMarkdownContext();
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // New state to track hover index
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const theme = useTheme();
 
   const handleDragStart = (index: number) => {
@@ -75,86 +75,89 @@ const MarkdownManager: React.FC<IMarkdownManager> = ({ onReorderItems }) => {
   };
 
   return (
-    <Box>
-      <Typography variant="h6" gutterBottom>
-        Reorder or delete items
-      </Typography>
-
-      <Box sx={{ marginTop: '1rem' }}>
-        {savedItems.map((item, index) => (
-          <Box
-            key={index}
+    <Box
+      sx={{
+        maxHeight: '540px',
+        overflowY: 'auto',
+        padding: '1rem',
+        border: '1px solid #333',
+        borderRadius: '8px',
+        backgroundColor: theme.palette.background.paper,
+      }}
+    >
+      {savedItems.map((item, index) => (
+        <Box
+          key={index}
+          sx={{
+            padding: hoveredIndex === index ? '0.5rem' : '0.2rem',
+            border:
+              hoveredIndex === index ? '2px dashed #09c' : '1px solid #ddd',
+            borderRadius: '5px',
+            marginBottom: '0.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            cursor: 'grab',
+            wordWrap: 'wrap',
+            transition: 'background-color 0.3s ease',
+            backgroundColor: hoveredIndex === index ? '#eee' : 'inherit',
+            '&:hover': {
+              backgroundColor: theme.palette.action.hover,
+              color: theme.palette.mode === 'light' ? '#333' : '#37B7C3',
+            },
+          }}
+          draggable
+          onDragStart={() => handleDragStart(index)}
+          onDragOver={(event) => handleDragOver(event, index)}
+          onDrop={() => handleDrop(index)}
+          onDragLeave={handleDragLeave}
+        >
+          <Typography
+            variant="body1"
             sx={{
-              padding: hoveredIndex === index ? '0.5rem' : '0.2rem',
-              border:
-                hoveredIndex === index ? '2px dashed #09c' : '1px solid #ddd',
-              borderRadius: '5px',
-              marginBottom: '0.5rem',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
               cursor: 'grab',
-              wordWrap: 'wrap',
-              transition: 'background-color 0.3s ease',
-              backgroundColor: hoveredIndex === index ? '#eee' : 'inherit',
+              wordBreak: 'break-word',
+              whiteSpace: 'normal',
+              overflowWrap: 'break-word',
+            }}
+          >
+            <span
+              style={{
+                cursor: 'grab',
+                display: 'inline-flex',
+                alignItems: 'center',
+              }}
+            >
+              <DragIndicatorIcon
+                color="secondary"
+                sx={{
+                  marginRight: '0.5rem',
+                  fontSize: '1.7em',
+                  padding: 0,
+                }}
+              />
+              {item}
+            </span>
+          </Typography>
+          <IconButton
+            aria-label="delete"
+            onClick={() => handleDeletingItem(index)}
+            sx={{
               '&:hover': {
-                backgroundColor: theme.palette.action.hover,
-                color: theme.palette.mode === 'light' ? '#333' : '#37B7C3',
+                color: theme.palette.error.main,
               },
             }}
-            draggable
-            onDragStart={() => handleDragStart(index)}
-            onDragOver={(event) => handleDragOver(event, index)}
-            onDrop={() => handleDrop(index)}
-            onDragLeave={handleDragLeave}
           >
-            <Typography
-              variant="body1"
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                cursor: 'grab',
-                '&:hover': {
-                  color: theme.palette.mode === 'light' ? '#333' : '#114ee9',
-                },
-              }}
-            >
-              <span
-                style={{
-                  cursor: 'grab',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                }}
-              >
-                <DragIndicatorIcon
-                  color="secondary"
-                  sx={{
-                    marginRight: '0.5rem',
-                    fontSize: '2em',
-                    padding: 0,
-                  }}
-                />
-                {item.substring(0, 21)}...
-              </span>
-            </Typography>
-            <IconButton
-              aria-label="delete"
-              onClick={() => handleDeletingItem(index)}
-              sx={{
-                '&:hover': {
-                  color: theme.palette.error.main,
-                },
-              }}
-            >
-              <Tooltip title="Click to delete">
-                <DeleteForeverTwoToneIcon
-                  sx={{ color: theme.palette.error.main }}
-                />
-              </Tooltip>
-            </IconButton>
-          </Box>
-        ))}
-      </Box>
+            <Tooltip title="Click to delete">
+              <DeleteForeverTwoToneIcon
+                sx={{ color: theme.palette.error.main }}
+              />
+            </Tooltip>
+          </IconButton>
+        </Box>
+      ))}
     </Box>
   );
 };
