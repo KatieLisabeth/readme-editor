@@ -2,26 +2,22 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import HomeIcon from '@mui/icons-material/Home';
 import ListAltIcon from '@mui/icons-material/ListAlt';
-
 import SettingsIcon from '@mui/icons-material/Settings';
 import {
   Box,
   Divider,
   Drawer,
-  FormControl,
   IconButton,
-  InputLabel,
   List,
   ListItem,
   ListItemText,
-  MenuItem,
-  Select,
   SelectChangeEvent,
   Tooltip,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import logo from 'assets/logo.png';
-import MarkdownSection from 'components/MarkdownSection';
+import Section from 'components/Section';
+import Selector from 'components/Selector';
 import { useMarkdownContext } from 'config/Context';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -129,30 +125,16 @@ const Sidebar: React.FC = () => {
               </Tooltip>
 
               {isExpanded && (
-                <FormControl fullWidth>
-                  <InputLabel id="section-select-label">Select</InputLabel>
-                  <Select
-                    labelId="section-select-label"
-                    value={selectedSectionId}
-                    onChange={handleSectionSelect}
-                    label="Select"
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    {templates.sections?.map((section) => (
-                      <MenuItem key={section.id} value={section.id}>
-                        {section.title}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <Selector
+                  value={selectedSectionId}
+                  onChange={handleSectionSelect}
+                />
               )}
             </ListItem>
           )}
         </List>
         <Divider />
-        {/* Scrollable MarkdownSection when expanded */}
+        {/* Scrollable Section when expanded */}
         <Box
           sx={{
             flex: 1,
@@ -163,7 +145,7 @@ const Sidebar: React.FC = () => {
           }}
         >
           {isPlayground && isExpanded && selectedSection && (
-            <MarkdownSection
+            <Section
               section={selectedSection}
               onSelectElement={handleSelectElement}
             />
