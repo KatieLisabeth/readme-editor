@@ -60,7 +60,11 @@ export default function App() {
               >
                 <SearchBar />
                 {/* Switch Button */}
-                <IconButton onClick={handleThemeSwitch} color="inherit">
+                <IconButton
+                  onClick={handleThemeSwitch}
+                  color="inherit"
+                  sx={{ m: 1 }}
+                >
                   {isDarkMode ? (
                     <LightModeIcon color="warning" />
                   ) : (
