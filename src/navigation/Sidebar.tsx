@@ -51,18 +51,27 @@ const Sidebar: React.FC = () => {
   const isPlayground = location.pathname === '/playground';
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box
+      sx={{
+        display: 'flex',
+      }}
+    >
       {/* Sidebar Drawer */}
       <Drawer
         variant="permanent"
         sx={{
-          width: isExpanded ? 333 : 60,
+          width: isExpanded && isPlayground ? 333 : 60,
           display: 'flex',
           justifyContent: isExpanded ? 'end' : 'center',
           padding: 0,
+
           '& .MuiDrawer-paper': {
             width: isExpanded ? 333 : 60,
             transition: 'width 0.3s ease',
+            background: isPlayground
+              ? theme.palette.background.paper
+              : theme.palette.background.default,
+            border: isPlayground ? '' : 'none',
           },
         }}
       >
@@ -105,7 +114,7 @@ const Sidebar: React.FC = () => {
             </ListItem>
           )}
         </List>
-        <Divider />
+        {isPlayground && <Divider />}
         {/* Scrollable Section when expanded */}
         <Box
           sx={{
@@ -155,17 +164,19 @@ const Sidebar: React.FC = () => {
             mb: 1,
           }}
         >
-          <IconButton onClick={toggleSidebar}>
-            {isExpanded ? (
-              <Tooltip title="Click to close">
-                <ArrowBackIosIcon />
-              </Tooltip>
-            ) : (
-              <Tooltip title="Click to open">
-                <ArrowForwardIosIcon />
-              </Tooltip>
-            )}
-          </IconButton>
+          {isPlayground && (
+            <IconButton onClick={toggleSidebar}>
+              {isExpanded ? (
+                <Tooltip title="Click to close">
+                  <ArrowBackIosIcon />
+                </Tooltip>
+              ) : (
+                <Tooltip title="Click to open">
+                  <ArrowForwardIosIcon />
+                </Tooltip>
+              )}
+            </IconButton>
+          )}
         </Box>
       </Drawer>
     </Box>
