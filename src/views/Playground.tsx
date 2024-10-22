@@ -11,9 +11,9 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import MarkdownEditor from 'components/MarkdownEditor';
-import MarkdownManager from 'components/MarkdownManager';
-import MarkdownPreview from 'components/MarkdownPreview';
+import Editor from 'components/Editor';
+import Manager from 'components/Manager';
+import Preview from 'components/Preview';
 import { useMarkdownContext } from 'config/Context';
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -244,12 +244,12 @@ const Playground: React.FC = () => {
           </Box>
 
           {!isManaging ? (
-            <MarkdownEditor
+            <Editor
               savedItems={savedItems}
               onMarkdownChange={handleMarkdownChange}
             />
           ) : (
-            <MarkdownManager onReorderItems={handleReorderItems} />
+            <Manager onReorderItems={handleReorderItems} />
           )}
         </Box>
         <Divider
@@ -272,7 +272,7 @@ const Playground: React.FC = () => {
           }}
         >
           {ReactMarkdown && rehypeDocument && remarkGfm && (
-            <MarkdownPreview
+            <Preview
               markdownText={savedItems.join('\n\n')}
               ReactMarkdown={ReactMarkdown}
               rehypeDocument={rehypeDocument}
