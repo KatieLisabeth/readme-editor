@@ -1,8 +1,6 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import HomeIcon from '@mui/icons-material/Home';
 import ListAltIcon from '@mui/icons-material/ListAlt';
-import SettingsIcon from '@mui/icons-material/Settings';
 import {
   Box,
   Divider,
@@ -10,7 +8,6 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemText,
   SelectChangeEvent,
   Tooltip,
 } from '@mui/material';
@@ -20,7 +17,7 @@ import Section from 'components/Section';
 import Selector from 'components/Selector';
 import { useMarkdownContext } from 'config/Context';
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import templates from 'utils/templates';
 
 const Sidebar: React.FC = () => {
@@ -30,7 +27,6 @@ const Sidebar: React.FC = () => {
   const { setMarkdownText, setSavedItems, savedItems } = useMarkdownContext();
   const location = useLocation();
   const theme = useTheme();
-  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsExpanded((prev) => !prev);
@@ -89,39 +85,15 @@ const Sidebar: React.FC = () => {
           />
         </Box>
         <List>
-          {/* Home link */}
-          <ListItem onClick={() => navigate('/')} sx={{ cursor: 'pointer' }}>
-            <Tooltip title="Home page">
-              <HomeIcon color="secondary" />
-            </Tooltip>
-            {isExpanded && (
-              <ListItemText
-                secondary="Home"
-                sx={{ px: 2, cursor: 'pointer' }}
-              />
-            )}
-          </ListItem>
-          {/* Playground link */}
-          <ListItem
-            onClick={() => navigate('/playground')}
-            sx={{ cursor: 'pointer' }}
-          >
-            <Tooltip title="Playground page">
-              <SettingsIcon color="secondary" />
-            </Tooltip>
-            {isExpanded && (
-              <ListItemText
-                secondary="Playground"
-                sx={{ px: 2, cursor: 'pointer' }}
-              />
-            )}
-          </ListItem>
-
           {/* Section Selector for Playground */}
           {isPlayground && (
             <ListItem>
               <Tooltip title="Click to select">
-                <ListAltIcon color="secondary" sx={{ cursor: 'pointer' }} />
+                <ListAltIcon
+                  color="secondary"
+                  sx={{ cursor: 'pointer' }}
+                  onClick={toggleSidebar}
+                />
               </Tooltip>
 
               {isExpanded && (

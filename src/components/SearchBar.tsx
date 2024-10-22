@@ -71,6 +71,7 @@ const SearchBar = () => {
               elements: filteredElements.map((item) => item.element),
             }}
             onSelectElement={(syntax) => handleSelect(syntax)}
+            isSearch={true}
           />
         ) : (
           searchTerm && <p>No elements found</p>

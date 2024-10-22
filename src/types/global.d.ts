@@ -31,7 +31,7 @@ declare global {
   interface IMarkdownSection {
     section: ISection;
     onSelectElement: (selectedSyntax: string[]) => void;
-    isDropdown?: boolean;
+    isSearch?: boolean;
   }
 
   type IRouteConfig = {

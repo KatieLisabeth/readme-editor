@@ -4,21 +4,21 @@ import { useTheme } from '@mui/material/styles';
 const Section: React.FC<IMarkdownSection> = ({
   section,
   onSelectElement,
-  isDropdown = false,
+  isSearch = false,
 }) => {
   const theme = useTheme();
 
   return (
     <Box
       sx={{
-        position: isDropdown ? 'absolute' : 'static',
-        background: isDropdown ? theme.palette.background.paper : 'transparent',
-        borderTop: isDropdown ? '1px solid #c4c4c4' : '',
-        boxShadow: isDropdown ? '0px 4px 6px rgba(0,0,0,0.1)' : 'none',
-        width: isDropdown ? '300px' : 'auto',
-        maxHeight: isDropdown ? '300px' : 'none',
-        overflowY: isDropdown ? 'auto' : 'visible',
-        zIndex: isDropdown ? 10 : 'auto',
+        position: isSearch ? 'absolute' : 'static',
+        background: isSearch ? theme.palette.background.paper : 'transparent',
+        borderTop: isSearch ? '1px solid #c4c4c4' : '',
+        boxShadow: isSearch ? '0px 4px 6px rgba(0,0,0,0.1)' : 'none',
+        width: isSearch ? '300px' : 'auto',
+        maxHeight: isSearch ? '300px' : 'none',
+        overflowY: isSearch ? 'auto' : 'visible',
+        zIndex: isSearch ? 10 : 'auto',
       }}
     >
       <List>
