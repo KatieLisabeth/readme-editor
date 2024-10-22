@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import React from 'react';
 
 const MarkdownEditor: React.FC<IMarkdownEditor> = ({
@@ -17,36 +17,21 @@ const MarkdownEditor: React.FC<IMarkdownEditor> = ({
 
   return (
     <Box>
-      <Typography
-        variant="h6"
+      <TextField
+        multiline
+        rows={10}
+        variant="outlined"
+        fullWidth
+        value={combinedMarkdown}
+        onChange={handleTextChange}
+        placeholder="Edit all markdown items here"
+        slotProps={{ input: { style: { fontFamily: 'monospace' } } }}
         sx={{
-          fontSize: {
-            xs: '1rem',
-            sm: '1.5rem',
+          '& textarea': {
+            minHeight: '51px',
           },
         }}
-        gutterBottom
-      >
-        Editor
-      </Typography>
-
-      <Box sx={{ marginBottom: '1rem' }}>
-        <TextField
-          multiline
-          rows={10}
-          variant="outlined"
-          fullWidth
-          value={combinedMarkdown}
-          onChange={handleTextChange}
-          placeholder="Edit all markdown items here"
-          slotProps={{ input: { style: { fontFamily: 'monospace' } } }}
-          sx={{
-            '& textarea': {
-              minHeight: '51px',
-            },
-          }}
-        />
-      </Box>
+      />
     </Box>
   );
 };
