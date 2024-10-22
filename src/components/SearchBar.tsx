@@ -1,7 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
 import { Divider, IconButton, InputBase, Paper } from '@mui/material';
 import { useMarkdownContext } from 'config/Context';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import templates from 'utils/templates';
 import MarkdownSection from './Section';
 
@@ -42,9 +42,28 @@ const SearchBar = () => {
     setSavedItems(updatedItems);
     setMarkdownText(updatedItems.join('\n\n'));
   };
+  const searchBarRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchBarRef.current &&
+        !searchBarRef.current.contains(event.target as Node)
+      ) {
+        setSearchTerm('');
+        setFilteredElements([]);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div>
+    <div ref={searchBarRef}>
       <Paper
         component="form"
         sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 300 }}
