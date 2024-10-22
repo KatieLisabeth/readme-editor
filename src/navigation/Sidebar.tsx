@@ -111,7 +111,6 @@ const Sidebar: React.FC = () => {
           sx={{
             flex: 1,
             marginTop: '1rem',
-            // marginBottom: '3rem',
             overflowY: 'auto',
             paddingX: isExpanded ? 2.5 : 0,
           }}
