@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
 import { ThemeProvider } from '@mui/material/styles';
+import SearchBar from 'components/SearchBar';
 import { MarkdownProvider } from 'config/Context';
 import Footer from 'navigation/Footer';
 import Sidebar from 'navigation/Sidebar';
@@ -57,8 +58,13 @@ export default function App() {
                   zIndex: 10,
                 }}
               >
-                {/* Theme Switch Button */}
-                <IconButton onClick={handleThemeSwitch} color="inherit">
+                <SearchBar />
+                {/* Switch Button */}
+                <IconButton
+                  onClick={handleThemeSwitch}
+                  color="inherit"
+                  sx={{ m: 1 }}
+                >
                   {isDarkMode ? (
                     <LightModeIcon color="warning" />
                   ) : (
@@ -69,6 +75,7 @@ export default function App() {
               {/* Body */}
               <Box
                 sx={{
+                  flex: 1,
                   paddingX: '1rem',
                 }}
               >

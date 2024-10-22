@@ -1,42 +1,32 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import HomeIcon from '@mui/icons-material/Home';
 import ListAltIcon from '@mui/icons-material/ListAlt';
-import LowPriorityIcon from '@mui/icons-material/LowPriority';
-import SettingsIcon from '@mui/icons-material/Settings';
 import {
   Box,
   Divider,
   Drawer,
-  FormControl,
   IconButton,
-  InputLabel,
   List,
   ListItem,
-  ListItemText,
-  MenuItem,
-  Select,
   SelectChangeEvent,
   Tooltip,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import logo from 'assets/logo.png';
-import MarkdownManager from 'components/MarkdownManager';
-import MarkdownSection from 'components/MarkdownSection';
-import SearchTemplates from 'components/SearchTemplate';
+import Section from 'components/Section';
+import Selector from 'components/Selector';
 import { useMarkdownContext } from 'config/Context';
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import templates from 'utils/templates';
 
 const Sidebar: React.FC = () => {
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
-  const [isManaging, setIsManaging] = React.useState<boolean>(false);
+
   const [selectedSectionId, setSelectedSectionId] = React.useState<string>('');
   const { setMarkdownText, setSavedItems, savedItems } = useMarkdownContext();
   const location = useLocation();
   const theme = useTheme();
-  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsExpanded((prev) => !prev);
@@ -54,14 +44,6 @@ const Sidebar: React.FC = () => {
     setMarkdownText(updatedItems.join('\n\n'));
   };
 
-  const handleManagingElement = () => {
-    setIsManaging((prev) => !prev);
-  };
-  const handleReorderItems = (updatedItems: string[]) => {
-    setSavedItems(updatedItems);
-    setMarkdownText(updatedItems.join('\n\n'));
-  };
-
   const selectedSection =
     templates.sections?.find((section) => section.id === selectedSectionId) ||
     null;
@@ -69,18 +51,27 @@ const Sidebar: React.FC = () => {
   const isPlayground = location.pathname === '/playground';
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box
+      sx={{
+        display: 'flex',
+      }}
+    >
       {/* Sidebar Drawer */}
       <Drawer
         variant="permanent"
         sx={{
-          width: isExpanded ? 333 : 60,
+          width: isExpanded && isPlayground ? 333 : 60,
           display: 'flex',
           justifyContent: isExpanded ? 'end' : 'center',
           padding: 0,
+
           '& .MuiDrawer-paper': {
             width: isExpanded ? 333 : 60,
             transition: 'width 0.3s ease',
+            background: isPlayground
+              ? theme.palette.background.paper
+              : theme.palette.background.default,
+            border: isPlayground ? '' : 'none',
           },
         }}
       >
@@ -103,99 +94,41 @@ const Sidebar: React.FC = () => {
           />
         </Box>
         <List>
-          {/* Home link */}
-          <ListItem onClick={() => navigate('/')} sx={{ cursor: 'pointer' }}>
-            <Tooltip title="Home page">
-              <HomeIcon color="secondary" />
-            </Tooltip>
-            {isExpanded && (
-              <ListItemText
-                secondary="Home"
-                sx={{ px: 2, cursor: 'pointer' }}
-              />
-            )}
-          </ListItem>
-          {/* Playground link */}
-          <ListItem
-            onClick={() => navigate('/playground')}
-            sx={{ cursor: 'pointer' }}
-          >
-            <Tooltip title="Playground page">
-              <SettingsIcon color="secondary" />
-            </Tooltip>
-            {isExpanded && (
-              <ListItemText
-                secondary="Playground"
-                sx={{ px: 2, cursor: 'pointer' }}
-              />
-            )}
-          </ListItem>
-          <SearchTemplates />
           {/* Section Selector for Playground */}
           {isPlayground && (
             <ListItem>
               <Tooltip title="Click to select">
-                <ListAltIcon color="secondary" sx={{ cursor: 'pointer' }} />
+                <ListAltIcon
+                  color="secondary"
+                  sx={{ cursor: 'pointer' }}
+                  onClick={toggleSidebar}
+                />
               </Tooltip>
 
               {isExpanded && (
-                <FormControl fullWidth>
-                  <InputLabel id="section-select-label">Select</InputLabel>
-                  <Select
-                    labelId="section-select-label"
-                    value={selectedSectionId}
-                    onChange={handleSectionSelect}
-                    label="Select"
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    {templates.sections?.map((section) => (
-                      <MenuItem key={section.id} value={section.id}>
-                        {section.title}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              )}
-            </ListItem>
-          )}
-          {isPlayground && savedItems.length > 1 && (
-            <ListItem
-              onClick={handleManagingElement}
-              sx={{ cursor: 'pointer' }}
-            >
-              <Tooltip title="Click to manage">
-                <LowPriorityIcon color="secondary" />
-              </Tooltip>
-              {isExpanded && (
-                <ListItemText
-                  secondary="Manage"
-                  sx={{ px: 2, cursor: 'pointer' }}
+                <Selector
+                  value={selectedSectionId}
+                  onChange={handleSectionSelect}
                 />
               )}
             </ListItem>
           )}
         </List>
-        <Divider />
-        {/* Scrollable MarkdownSection when expanded */}
+        {isPlayground && <Divider />}
+        {/* Scrollable Section when expanded */}
         <Box
           sx={{
             flex: 1,
             marginTop: '1rem',
-            // marginBottom: '3rem',
             overflowY: 'auto',
             paddingX: isExpanded ? 2.5 : 0,
           }}
         >
-          {isPlayground && isExpanded && !isManaging && selectedSection && (
-            <MarkdownSection
+          {isPlayground && isExpanded && selectedSection && (
+            <Section
               section={selectedSection}
               onSelectElement={handleSelectElement}
             />
-          )}
-          {isPlayground && isExpanded && isManaging && (
-            <MarkdownManager onReorderItems={handleReorderItems} />
           )}
         </Box>
 
@@ -231,17 +164,19 @@ const Sidebar: React.FC = () => {
             mb: 1,
           }}
         >
-          <IconButton onClick={toggleSidebar}>
-            {isExpanded ? (
-              <Tooltip title="Click to close">
-                <ArrowBackIosIcon />
-              </Tooltip>
-            ) : (
-              <Tooltip title="Click to open">
-                <ArrowForwardIosIcon />
-              </Tooltip>
-            )}
-          </IconButton>
+          {isPlayground && (
+            <IconButton onClick={toggleSidebar}>
+              {isExpanded ? (
+                <Tooltip title="Click to close">
+                  <ArrowBackIosIcon />
+                </Tooltip>
+              ) : (
+                <Tooltip title="Click to open">
+                  <ArrowForwardIosIcon />
+                </Tooltip>
+              )}
+            </IconButton>
+          )}
         </Box>
       </Drawer>
     </Box>

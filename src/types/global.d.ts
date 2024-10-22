@@ -31,6 +31,7 @@ declare global {
   interface IMarkdownSection {
     section: ISection;
     onSelectElement: (selectedSyntax: string[]) => void;
+    isSearch?: boolean;
   }
 
   type IRouteConfig = {
@@ -48,6 +49,11 @@ declare global {
     ReactMarkdown: any;
     rehypeDocument: any;
     remarkGfm: any;
+  };
+
+  type IMarkdownSelector = {
+    value: string;
+    onChange: (event: SelectChangeEvent<string>) => void;
   };
 
   type IMarkdownManager = {
