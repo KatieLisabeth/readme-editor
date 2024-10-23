@@ -9,7 +9,7 @@ import { MarkdownProvider } from 'config/Context';
 import Footer from 'navigation/Footer';
 import Sidebar from 'navigation/Sidebar';
 import { useEffect, useState } from 'react';
-import { HashRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import AppRoutes from 'routes/AppRoutes';
 import { darkTheme, lightTheme } from './theme';
 
